@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">QuickRecipe</string>
+    <string name="title_activity_nav_drawer">NavDrawerActivity</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="cart">Cart</string>
+    <string name="meat">Meat</string>
+
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="signIn">Sign in</string>
+    <string name="signUp">Register</string>
+    <string name="rememberMe">Remember me</string>
+    <string name="firstName">First name</string>
+    <string name="reenterPass">Re-enter password</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
