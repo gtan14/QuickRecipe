@@ -83,6 +83,7 @@ public class HomeFragment extends Fragment {
 
         //  sort by alphabetical order, so it displays correctly
         //Arrays.sort(categoryList);
+        getActivity().setTitle("Home");
         gridView.setAdapter(new MainCategoryAdapter(this, categoryList, imageList));
     }
 

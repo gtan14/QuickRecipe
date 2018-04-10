@@ -7,7 +7,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 /**
@@ -53,11 +55,18 @@ public class MainCategoryAdapter extends BaseAdapter {
     public View getView(final int position, View convertView, ViewGroup parent){
         Holder holder;
 
+        //  if view not recycled, initialize some attr
         if(convertView == null){
              holder = new Holder();
              convertView = inflater.inflate(R.layout.category_layout, null);
              holder.categoryName = (TextView) convertView.findViewById(R.id.gridItemName);
              holder.categoryImage = (ImageView) convertView.findViewById(R.id.gridItemImage);
+             //RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT);
+            //holder.categoryImage.setLayoutParams(new RelativeLayout.LayoutParams(125, 125));
+            //convertView.setLayoutParams(new GridView.LayoutParams(params));
+            //holder.categoryImage.setScaleType(ImageView.ScaleType.CENTER_CROP);
+            //holder.categoryImage.setPadding(8, 8, 8, 8);
+
              convertView.setTag(holder);
         }
 

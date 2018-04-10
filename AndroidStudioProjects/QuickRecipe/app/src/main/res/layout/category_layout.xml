@@ -1,35 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <ImageView
+    <com.example.quickrecipe.SquareImageView
         android:id="@+id/gridItemImage"
-        android:layout_width="125dp"
-        android:layout_height="125dp"
-        android:scaleType="center"
-        android:background="#80E0E0E0"/>
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop" />
 
-    <ImageView
-        android:id="@+id/gridItemCheckmark"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
-        android:layout_alignBottom="@+id/gridItemName"
-        android:layout_alignEnd="@+id/gridItemImage"
-        android:background="@drawable/ic_tick"
-        android:backgroundTint="@android:color/holo_green_light"
-        android:visibility="invisible" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/gradient"/>
 
     <TextView
         android:id="@+id/gridItemName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:gravity="center"
+        android:layout_gravity="center"
         android:textColor="@android:color/white"
         android:textSize="20sp"
         android:textStyle="bold" />
 
-</RelativeLayout>
+    <ImageView
+        android:id="@+id/gridItemCheckmark"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="15dp"
+        android:background="@drawable/ic_tick"
+        android:backgroundTint="@android:color/holo_green_light"
+        android:visibility="invisible"
+        android:layout_gravity="top|end"/>
+
+</FrameLayout>
