@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="sweeteners">
+        <item>Sugar</item>
+        <item>Brown Sugar</item>
+        <item>Honey</item>
+        <item>Confectioners Sugar</item>
+        <item>Maple syrup</item>
+        <item>Artificial sweetener</item>
+        <item>Agave nectar</item>
+    </string-array>
+
+    <array name="sweeteners_imgs">
+        <item>@drawable/agave_nectar</item>
+        <item>@drawable/artificial_sweetener</item>
+        <item>@drawable/brown_sugar</item>
+        <item>@drawable/confectioners_sugar</item>
+        <item>@drawable/honey</item>
+        <item>@drawable/maple_syrup</item>
+        <item>@drawable/sugar</item>
+    </array>
+
+    <string-array name="meats">
+        <item>Ground beef</item>
+        <item>Bacon</item>
+        <item>Chicken</item>
+        <item>Sausage</item>
+        <item>Beef steak</item>
+        <item>Hot dogs</item>
+        <item>Pork chops</item>
+        <item>Ham</item>
+        <item>Ground turkey</item>
+        <item>Turkey</item>
+        <item>Pepperoni</item>
+        <item>Salami</item>
+        <item>Lamb</item>
+        <item>Chorizo</item>
+    </string-array>
+
+    <array name="meats_imgs">
+        <item>@drawable/bacon</item>
+        <item>@drawable/beef_steak</item>
+        <item>@drawable/chicken</item>
+        <item>@drawable/chorizo</item>
+        <item>@drawable/ground_beef</item>
+        <item>@drawable/ground_turkey</item>
+        <item>@drawable/ham</item>
+        <item>@drawable/hot_dog</item>
+        <item>@drawable/lamb</item>
+        <item>@drawable/pepperoni</item>
+        <item>@drawable/pork_chop</item>
+        <item>@drawable/salami</item>
+        <item>@drawable/sausage</item>
+        <item>@drawable/turkey</item>
+    </array>
+
+    <string-array name="seafood">
+        <item>Shrimp</item>
+        <item>Crab</item>
+        <item>Tuna</item>
+        <item>Salmon</item>
+        <item>Tilapia</item>
+        <item>Cod</item>
+        <item>Red snapper</item>
+        <item>Clam</item>
+        <item>Lobster</item>
+        <item>Oyster</item>
+    </string-array>
+
+    <string-array name="condiments">
+        <item>Mayonnaise</item>
+        <item>Ketchup</item>
+        <item>Mustard</item>
+        <item>Vinegar</item>
+        <item>Soy sauce</item>
+        <item>Hot sauce</item>
+        <item>Barbeque sauce</item>
+        <item>Ranch</item>
+        <item>Italian dressing</item>
+        <item>Teriyaki</item>
+        <item>Tahini</item>
+        <item>Tartar sauce</item>
+        <item>Cocktail sauce</item>
+        <item>Balsamic vinegar</item>
+    </string-array>
+</resources>

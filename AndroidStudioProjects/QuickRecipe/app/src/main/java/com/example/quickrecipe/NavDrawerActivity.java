@@ -19,6 +19,8 @@ import android.widget.TextView;
 public class NavDrawerActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    public TextView cartQuantity;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,11 +38,11 @@ public class NavDrawerActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        //  creates the home fragment
         Fragment homeFragment = new HomeFragment();
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
 
-        fragmentTransaction.replace(R.id.content_frame, homeFragment);
-        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.add(R.id.content_frame, homeFragment);
         fragmentTransaction.commit();
     }
 
@@ -52,6 +54,7 @@ public class NavDrawerActivity extends AppCompatActivity
         } else {
             super.onBackPressed();
         }
+
     }
 
     @Override
@@ -59,12 +62,13 @@ public class NavDrawerActivity extends AppCompatActivity
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.nav_drawer, menu);
         MenuItem item = menu.findItem(R.id.cartItem);
+
         item.setActionView(R.layout.cart_image_layout);
-        Log.d("action", menu.findItem(R.id.cartItem).getActionView().toString());
+
+        //  default cart quantity is 0
         FrameLayout view = (FrameLayout) item.getActionView();
-        Log.d("children", String.format("%s", view.getChildCount()));
-        TextView textView = (TextView) view.findViewById(R.id.cart_badge);
-        textView.setText("0");
+        cartQuantity = (TextView) view.findViewById(R.id.cart_badge);
+        cartQuantity.setText("0");
         return true;
     }
 

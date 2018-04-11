@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#E0E0E0"
     tools:context="com.example.quickrecipe.HomeFragment">
 
     <SearchView
@@ -34,8 +35,16 @@
             android:layout_height="match_parent"
             android:columnWidth="200dp"
             android:gravity="center"
+            android:horizontalSpacing="10dp"
+            android:verticalSpacing="10dp"
+            android:padding="10dp"
+            android:clipToPadding="false"
+            android:background="#E0E0E0"
+            android:elevation="10dp"
+            android:scrollbarStyle="outsideOverlay"
             android:numColumns="2"
-            android:stretchMode="columnWidth" />
+            android:stretchMode="columnWidth"
+            />
     </RelativeLayout>
 
 </android.support.constraint.ConstraintLayout>

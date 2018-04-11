@@ -7,6 +7,7 @@ import android.util.AttributeSet;
  * Created by Gerald on 4/10/2018.
  */
 
+//  class that resizes images properly to fit gridview
 public class SquareImageView extends android.support.v7.widget.AppCompatImageView {
     public SquareImageView(Context context) {
         super(context);

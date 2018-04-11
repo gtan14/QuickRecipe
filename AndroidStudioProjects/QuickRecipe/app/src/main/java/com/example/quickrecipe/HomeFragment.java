@@ -8,9 +8,12 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -18,8 +21,6 @@ import android.widget.SearchView;
 import android.widget.TextView;
 
 import java.util.Arrays;
-
-import jp.wasabeef.blurry.Blurry;
 
 
 public class HomeFragment extends Fragment {
@@ -29,14 +30,17 @@ public class HomeFragment extends Fragment {
     private Context context;
 
     public static String[] categoryList = {
-            "Added Sweeteners",
+            "Added sweeteners",
             "Alcohol",
+            "Beverages",
             "Condiments",
             "Dairy",
+            "Desserts and snacks",
             "Fruits",
             "Grains",
             "Legumes",
             "Meats",
+            "Nuts",
             "Oils",
             "Sauces",
             "Seafood",
@@ -48,12 +52,15 @@ public class HomeFragment extends Fragment {
     public static int[] imageList = {
             R.drawable.sweetener,
             R.drawable.alcohol,
+            R.drawable.beverages,
             R.drawable.condiments,
             R.drawable.dairy,
+            R.drawable.desserts,
             R.drawable.fruits,
             R.drawable.grains,
             R.drawable.legumes,
             R.drawable.meat,
+            R.drawable.nuts,
             R.drawable.oil,
             R.drawable.sauces,
             R.drawable.seafood,
@@ -85,6 +92,45 @@ public class HomeFragment extends Fragment {
         //Arrays.sort(categoryList);
         getActivity().setTitle("Home");
         gridView.setAdapter(new MainCategoryAdapter(this, categoryList, imageList));
+
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                MainCategoryAdapter.Holder holder = (MainCategoryAdapter.Holder) view.getTag();
+                String catName = holder.categoryName.getText().toString();
+                SubCategory subCategory = new SubCategory();
+
+
+                if(catName.equals("Added sweeteners")){
+                    String[] sortedIngredients = getActivity().getResources().getStringArray(R.array.sweeteners);
+                    Arrays.sort(sortedIngredients);
+                    subCategory.setIngredientList(sortedIngredients);
+                    subCategory.setImgs(getActivity().getResources().obtainTypedArray(R.array.sweeteners_imgs));
+                }
+
+                if(catName.equals("Meats")){
+                    String[] sortedIngredients = getActivity().getResources().getStringArray(R.array.meats);
+                    Arrays.sort(sortedIngredients);
+                    subCategory.setIngredientList(sortedIngredients);
+                    subCategory.setImgs(getActivity().getResources().obtainTypedArray(R.array.meats_imgs));
+                }
+
+                else{
+                    //ingredientsList = new ArrayList<>();
+                }
+
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("subCategory", subCategory);
+
+                Fragment ingredientsFragment = new IngredientsFragment();
+                ingredientsFragment.setArguments(bundle);
+                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+
+                fragmentTransaction.add(R.id.content_frame, ingredientsFragment);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+            }
+        });
     }
 
 

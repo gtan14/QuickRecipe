@@ -1,8 +1,13 @@
 package com.example.quickrecipe;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +17,10 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * Created by Gerald on 4/9/2018.
  */
@@ -20,15 +29,23 @@ public class MainCategoryAdapter extends BaseAdapter {
 
     String[] categoriesList;
     Context context;
+    FragmentActivity fragmentActivity;
     int[] imageId;
+
     private static LayoutInflater inflater = null;
 
-    public MainCategoryAdapter(HomeFragment homeFragment, String[] categoryNameList, int[] categoryImages){
+    public MainCategoryAdapter(Fragment fragment, String[] categoryNameList, int[] categoryImages){
         this.categoriesList = categoryNameList;
         this.imageId = categoryImages;
-        this.context = homeFragment.getContext();
+        this.context = fragment.getContext();
+        this.fragmentActivity = fragment.getActivity();
         inflater = (LayoutInflater) this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
+    }
+
+    @Override
+    public boolean isEnabled(int i) {
+        return true;
     }
 
     @Override
@@ -49,6 +66,9 @@ public class MainCategoryAdapter extends BaseAdapter {
     public class Holder{
         TextView categoryName;
         ImageView categoryImage;
+        ImageView checkbox;
+        boolean ingredientsChecked;
+
     }
 
     @Override
@@ -61,11 +81,7 @@ public class MainCategoryAdapter extends BaseAdapter {
              convertView = inflater.inflate(R.layout.category_layout, null);
              holder.categoryName = (TextView) convertView.findViewById(R.id.gridItemName);
              holder.categoryImage = (ImageView) convertView.findViewById(R.id.gridItemImage);
-             //RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT);
-            //holder.categoryImage.setLayoutParams(new RelativeLayout.LayoutParams(125, 125));
-            //convertView.setLayoutParams(new GridView.LayoutParams(params));
-            //holder.categoryImage.setScaleType(ImageView.ScaleType.CENTER_CROP);
-            //holder.categoryImage.setPadding(8, 8, 8, 8);
+             holder.checkbox = (ImageView) convertView.findViewById(R.id.gridItemCheckmark);
 
              convertView.setTag(holder);
         }
@@ -76,7 +92,6 @@ public class MainCategoryAdapter extends BaseAdapter {
 
         holder.categoryName.setText(categoriesList[position]);
         holder.categoryImage.setImageResource(imageId[position]);
-        //holder.categoryImage.getBackground().setColorFilter(Color.parseColor("#80000000"), PorterDuff.Mode.SRC_ATOP);
         return convertView;
 
     }
