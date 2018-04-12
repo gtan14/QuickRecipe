@@ -20,6 +20,7 @@ import android.widget.ImageView;
 import android.widget.SearchView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 
@@ -28,6 +29,8 @@ public class HomeFragment extends Fragment {
     private SearchView searchView;
     private GridView gridView;
     private Context context;
+    private Category category;
+    private NavDrawerActivity activity;
 
     public static String[] categoryList = {
             "Added sweeteners",
@@ -74,12 +77,14 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        Log.d("create", "view");
+
         return inflater.inflate(R.layout.fragment_home, container, false);
     }
 
     @Override
     public void onViewCreated(View v, @Nullable Bundle savedInstanceState){
-
+        Log.d("view", "created");
         searchView = (SearchView) v.findViewById(R.id.ingredientSearchView);
         gridView = (GridView) v.findViewById(R.id.mainCategoryGridView);
     }
@@ -88,11 +93,32 @@ public class HomeFragment extends Fragment {
     public void onActivityCreated(Bundle bundle){
         super.onActivityCreated(bundle);
 
-        //  sort by alphabetical order, so it displays correctly
-        //Arrays.sort(categoryList);
+        Log.d("act", "Created");
+        activity = (NavDrawerActivity) getActivity();
         getActivity().setTitle("Home");
-        gridView.setAdapter(new MainCategoryAdapter(this, categoryList, imageList));
 
+        //  initialize categories
+        category = new Category();
+        category.setCategories(categoryList);
+        category.setImgList(imageList);
+        ArrayList<String> arrayList = new ArrayList<>();
+        for(int i = 0; i < categoryList.length; i++){
+            arrayList.add(i, "0");
+        }
+        category.setCheckedList(arrayList);
+
+        //  checks the cart to see if any ingredients are added
+        //  if there are, get the category position and set checked list at category position to 1
+        //  this makes a checkmark appear for the category of the ingredient in the cart
+        for(int i = 0; i < activity.cartArrayList.size(); i++){
+            Cart cart = activity.cartArrayList.get(i);
+            category.getCheckedList().set(cart.getCategory(), "1");
+        }
+
+        gridView.setAdapter(new MainCategoryAdapter(this, category));
+
+        //  gets the ingredients and pictures that correspond to the category clicked and creates a subcategory class with those as values
+        //  an arraylist the size of the ingredients list is created which is responsible for defaulting the check marks to invisible
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -108,16 +134,127 @@ public class HomeFragment extends Fragment {
                     subCategory.setImgs(getActivity().getResources().obtainTypedArray(R.array.sweeteners_imgs));
                 }
 
-                if(catName.equals("Meats")){
+                else if(catName.equals("Alcohol")){
+                    String[] sortedIngredients = getActivity().getResources().getStringArray(R.array.alcohol);
+                    Arrays.sort(sortedIngredients);
+                    subCategory.setIngredientList(sortedIngredients);
+                    subCategory.setImgs(getActivity().getResources().obtainTypedArray(R.array.alcohol_img));
+                }
+
+                else if(catName.equals("Beverages")){
+                    String[] sortedIngredients = getActivity().getResources().getStringArray(R.array.beverages);
+                    Arrays.sort(sortedIngredients);
+                    subCategory.setIngredientList(sortedIngredients);
+                    subCategory.setImgs(getActivity().getResources().obtainTypedArray(R.array.beverages_imgs));
+                }
+
+                else if(catName.equals("Condiments")){
+                    String[] sortedIngredients = getActivity().getResources().getStringArray(R.array.condiments);
+                    Arrays.sort(sortedIngredients);
+                    subCategory.setIngredientList(sortedIngredients);
+                    subCategory.setImgs(getActivity().getResources().obtainTypedArray(R.array.condiments_imgs));
+                }
+
+                else if(catName.equals("Dairy")){
+                    String[] sortedIngredients = getActivity().getResources().getStringArray(R.array.dairy);
+                    Arrays.sort(sortedIngredients);
+                    subCategory.setIngredientList(sortedIngredients);
+                    subCategory.setImgs(getActivity().getResources().obtainTypedArray(R.array.dairy_imgs));
+                }
+
+                else if(catName.equals("Desserts and snacks")){
+                    String[] sortedIngredients = getActivity().getResources().getStringArray(R.array.deserts_snacks);
+                    Arrays.sort(sortedIngredients);
+                    subCategory.setIngredientList(sortedIngredients);
+                    subCategory.setImgs(getActivity().getResources().obtainTypedArray(R.array.deserts_snacks_img));
+                }
+
+                else if(catName.equals("Fruits")){
+                    String[] sortedIngredients = getActivity().getResources().getStringArray(R.array.fruits);
+                    Arrays.sort(sortedIngredients);
+                    subCategory.setIngredientList(sortedIngredients);
+                    subCategory.setImgs(getActivity().getResources().obtainTypedArray(R.array.fruit_imgs));
+                }
+
+                else if(catName.equals("Grains")){
+                    String[] sortedIngredients = getActivity().getResources().getStringArray(R.array.baking_grains);
+                    Arrays.sort(sortedIngredients);
+                    subCategory.setIngredientList(sortedIngredients);
+                    subCategory.setImgs(getActivity().getResources().obtainTypedArray(R.array.baking_grains_imgs));
+                }
+
+                else if(catName.equals("Legumes")){
+                    String[] sortedIngredients = getActivity().getResources().getStringArray(R.array.legumes);
+                    Arrays.sort(sortedIngredients);
+                    subCategory.setIngredientList(sortedIngredients);
+                    subCategory.setImgs(getActivity().getResources().obtainTypedArray(R.array.legumes_img));
+                }
+
+                else if(catName.equals("Meats")){
                     String[] sortedIngredients = getActivity().getResources().getStringArray(R.array.meats);
                     Arrays.sort(sortedIngredients);
                     subCategory.setIngredientList(sortedIngredients);
                     subCategory.setImgs(getActivity().getResources().obtainTypedArray(R.array.meats_imgs));
                 }
 
-                else{
-                    //ingredientsList = new ArrayList<>();
+                else if(catName.equals("Nuts")){
+                    String[] sortedIngredients = getActivity().getResources().getStringArray(R.array.nuts);
+                    Arrays.sort(sortedIngredients);
+                    subCategory.setIngredientList(sortedIngredients);
+                    subCategory.setImgs(getActivity().getResources().obtainTypedArray(R.array.nuts_img));
                 }
+
+                else if(catName.equals("Oils")){
+                    String[] sortedIngredients = getActivity().getResources().getStringArray(R.array.oils);
+                    Arrays.sort(sortedIngredients);
+                    subCategory.setIngredientList(sortedIngredients);
+                    subCategory.setImgs(getActivity().getResources().obtainTypedArray(R.array.oils_img));
+                }
+
+                else if(catName.equals("Sauces")){
+                    String[] sortedIngredients = getActivity().getResources().getStringArray(R.array.sauces);
+                    Arrays.sort(sortedIngredients);
+                    subCategory.setIngredientList(sortedIngredients);
+                    subCategory.setImgs(getActivity().getResources().obtainTypedArray(R.array.sauces_imgs));
+                }
+
+                else if(catName.equals("Seafood")){
+                    String[] sortedIngredients = getActivity().getResources().getStringArray(R.array.seafood);
+                    Arrays.sort(sortedIngredients);
+                    subCategory.setIngredientList(sortedIngredients);
+                    subCategory.setImgs(getActivity().getResources().obtainTypedArray(R.array.seafood_imgs));
+                }
+
+                else if(catName.equals("Soup")){
+                    String[] sortedIngredients = getActivity().getResources().getStringArray(R.array.soup);
+                    Arrays.sort(sortedIngredients);
+                    subCategory.setIngredientList(sortedIngredients);
+                    subCategory.setImgs(getActivity().getResources().obtainTypedArray(R.array.soup_img));
+                }
+
+                else if(catName.equals("Spices")){
+                    String[] sortedIngredients = getActivity().getResources().getStringArray(R.array.spices);
+                    Arrays.sort(sortedIngredients);
+                    subCategory.setIngredientList(sortedIngredients);
+                    subCategory.setImgs(getActivity().getResources().obtainTypedArray(R.array.spices_imgs));
+                }
+
+                else{
+                    String[] sortedIngredients = getActivity().getResources().getStringArray(R.array.vegetables);
+                    Arrays.sort(sortedIngredients);
+                    subCategory.setIngredientList(sortedIngredients);
+                    subCategory.setImgs(getActivity().getResources().obtainTypedArray(R.array.vegetable_imgs));
+                }
+
+                //  all the ingredients are defaulted as unchecked when going into ingredient fragment
+                //  string "0" represents unchecked
+                ArrayList<String> checked = new ArrayList<>();
+                for(int i = 0; i < subCategory.getIngredientList().length; i++){
+                    checked.add(i, "0");
+                }
+
+                subCategory.setIngredientChecked(checked);
+                subCategory.setCategory(position);
 
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("subCategory", subCategory);
@@ -126,7 +263,7 @@ public class HomeFragment extends Fragment {
                 ingredientsFragment.setArguments(bundle);
                 FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
 
-                fragmentTransaction.add(R.id.content_frame, ingredientsFragment);
+                fragmentTransaction.replace(R.id.content_frame, ingredientsFragment);
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
             }
@@ -145,4 +282,9 @@ public class HomeFragment extends Fragment {
         super.onDetach();
     }
 
+    @Override
+    public void onResume(){
+        super.onResume();
+        Log.d("resume", "resume");
+    }
 }

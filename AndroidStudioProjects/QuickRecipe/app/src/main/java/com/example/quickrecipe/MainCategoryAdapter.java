@@ -27,16 +27,14 @@ import java.util.List;
 
 public class MainCategoryAdapter extends BaseAdapter {
 
-    String[] categoriesList;
     Context context;
     FragmentActivity fragmentActivity;
-    int[] imageId;
+    private Category category;
 
     private static LayoutInflater inflater = null;
 
-    public MainCategoryAdapter(Fragment fragment, String[] categoryNameList, int[] categoryImages){
-        this.categoriesList = categoryNameList;
-        this.imageId = categoryImages;
+    public MainCategoryAdapter(Fragment fragment, Category category){
+        this.category = category;
         this.context = fragment.getContext();
         this.fragmentActivity = fragment.getActivity();
         inflater = (LayoutInflater) this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -50,7 +48,7 @@ public class MainCategoryAdapter extends BaseAdapter {
 
     @Override
     public int getCount(){
-        return categoriesList.length;
+        return category.getCategories().length;
     }
 
     @Override
@@ -67,8 +65,7 @@ public class MainCategoryAdapter extends BaseAdapter {
         TextView categoryName;
         ImageView categoryImage;
         ImageView checkbox;
-        boolean ingredientsChecked;
-
+        String ingredientsChecked;
     }
 
     @Override
@@ -90,8 +87,17 @@ public class MainCategoryAdapter extends BaseAdapter {
             holder = (Holder) convertView.getTag();
         }
 
-        holder.categoryName.setText(categoriesList[position]);
-        holder.categoryImage.setImageResource(imageId[position]);
+        holder.categoryName.setText(category.getCategories()[position]);
+        holder.categoryImage.setImageResource(category.getImgList()[position]);
+        holder.ingredientsChecked = category.getCheckedList().get(position);
+
+        if(holder.ingredientsChecked.equals("1")){
+            holder.checkbox.setVisibility(View.VISIBLE);
+        }
+
+        else{
+            holder.checkbox.setVisibility(View.INVISIBLE);
+        }
         return convertView;
 
     }

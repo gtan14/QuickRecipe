@@ -16,10 +16,13 @@ import android.view.MenuItem;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 public class NavDrawerActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     public TextView cartQuantity;
+    public ArrayList<Cart> cartArrayList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +40,9 @@ public class NavDrawerActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        //  initialize the cart array list
+        cartArrayList = new ArrayList<Cart>();
 
         //  creates the home fragment
         Fragment homeFragment = new HomeFragment();

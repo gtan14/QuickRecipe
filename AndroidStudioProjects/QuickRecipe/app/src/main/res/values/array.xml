@@ -67,6 +67,19 @@
         <item>Oyster</item>
     </string-array>
 
+    <array name="seafood_imgs">
+        <item>@drawable/clam</item>
+        <item>@drawable/cod</item>
+        <item>@drawable/crab</item>
+        <item>@drawable/lobster</item>
+        <item>@drawable/oyster</item>
+        <item>@drawable/red_snapper</item>
+        <item>@drawable/salmon</item>
+        <item>@drawable/shrimp</item>
+        <item>@drawable/tilapia</item>
+        <item>@drawable/tuna</item>
+    </array>
+
     <string-array name="condiments">
         <item>Mayonnaise</item>
         <item>Ketchup</item>
@@ -83,4 +96,350 @@
         <item>Cocktail sauce</item>
         <item>Balsamic vinegar</item>
     </string-array>
+
+    <array name="condiments_imgs">
+        <item>@drawable/balsamic_vinegar</item>
+        <item>@drawable/barbeque_sauce</item>
+        <item>@drawable/cocktail_sauce</item>
+        <item>@drawable/hot_sauce</item>
+        <item>@drawable/italian_dressing</item>
+        <item>@drawable/ketchup</item>
+        <item>@drawable/mayonnaise</item>
+        <item>@drawable/mustard</item>
+        <item>@drawable/ranch</item>
+        <item>@drawable/soy_sauce</item>
+        <item>@drawable/tahini</item>
+        <item>@drawable/tartar_sauce</item>
+        <item>@drawable/teriyaki</item>
+        <item>@drawable/vinegar</item>
+    </array>
+
+    <string-array name="vegetables">
+        <item>Artichoke</item>
+        <item>Asparagus</item>
+        <item>Avocado</item>
+        <item>Basil</item>
+        <item>Beet</item>
+        <item>Bell pepper</item>
+        <item>Broccoli</item>
+        <item>Cabbage</item>
+        <item>Cauliflower</item>
+        <item>Celery</item>
+        <item>Cilantro</item>
+        <item>Corn</item>
+        <item>Cucumber</item>
+        <item>Eggplant</item>
+        <item>Garlic</item>
+        <item>Ginger</item>
+        <item>Green bean</item>
+        <item>Mint</item>
+        <item>Mushroom</item>
+        <item>Olive</item>
+        <item>Onion</item>
+        <item>Parsley</item>
+        <item>Scallion</item>
+        <item>Spinach</item>
+        <item>Tomato</item>
+        <item>Zucchini</item>
+    </string-array>
+
+    <array name="vegetable_imgs">
+        <item>@drawable/artichoke</item>
+        <item>@drawable/asparagus</item>
+        <item>@drawable/avocado</item>
+        <item>@drawable/basil</item>
+        <item>@drawable/beet</item>
+        <item>@drawable/bell_pepper</item>
+        <item>@drawable/broccoli</item>
+        <item>@drawable/cabbage</item>
+        <item>@drawable/cauliflower</item>
+        <item>@drawable/celery</item>
+        <item>@drawable/cilantro</item>
+        <item>@drawable/corn</item>
+        <item>@drawable/cucumber</item>
+        <item>@drawable/eggplant</item>
+        <item>@drawable/garlic</item>
+        <item>@drawable/ginger</item>
+        <item>@drawable/green_bean</item>
+        <item>@drawable/mint</item>
+        <item>@drawable/mushroom</item>
+        <item>@drawable/olive</item>
+        <item>@drawable/onion</item>
+        <item>@drawable/parsley</item>
+        <item>@drawable/scallion</item>
+        <item>@drawable/spinach</item>
+        <item>@drawable/tomato</item>
+        <item>@drawable/zucchini</item>
+    </array>
+
+    <string-array name="fruits">
+        <item>Apple</item>
+        <item>Banana</item>
+        <item>Blackberry</item>
+        <item>Blueberry</item>
+        <item>Cantaloupe</item>
+        <item>Cherry</item>
+        <item>Coconut</item>
+        <item>Cranberry</item>
+        <item>Date</item>
+        <item>Grape</item>
+        <item>Grapefruit</item>
+        <item>Guava</item>
+        <item>Kiwi</item>
+        <item>Lemon</item>
+        <item>Orange</item>
+        <item>Papaya</item>
+        <item>Peach</item>
+        <item>Pear</item>
+        <item>Pineapple</item>
+        <item>Plum</item>
+        <item>Raisin</item>
+        <item>Raspberry</item>
+        <item>Strawberry</item>
+        <item>Watermelon</item>
+    </string-array>
+
+    <array name="fruit_imgs">
+        <item>@drawable/apple</item>
+        <item>@drawable/banana</item>
+        <item>@drawable/blackberry</item>
+        <item>@drawable/blueberry</item>
+        <item>@drawable/cantaloupe</item>
+        <item>@drawable/cherry</item>
+        <item>@drawable/coconut</item>
+        <item>@drawable/cranberry</item>
+        <item>@drawable/date</item>
+        <item>@drawable/grape</item>
+        <item>@drawable/grapefuit</item>
+        <item>@drawable/guava</item>
+        <item>@drawable/kiwi</item>
+        <item>@drawable/lemon</item>
+        <item>@drawable/orange</item>
+        <item>@drawable/papaya</item>
+        <item>@drawable/peach</item>
+        <item>@drawable/pear</item>
+        <item>@drawable/pineapple</item>
+        <item>@drawable/plum</item>
+        <item>@drawable/raisin</item>
+        <item>@drawable/raspberry</item>
+        <item>@drawable/strawberry</item>
+        <item>@drawable/watermelon</item>
+    </array>
+
+    <string-array name="oils">
+        <item>Almond oil</item>
+        <item>Canola oil</item>
+        <item>Coconut oil</item>
+        <item>Corn oil</item>
+        <item>Grapeseed oil</item>
+        <item>Lard</item>
+        <item>Mustard oil</item>
+        <item>Olive oil</item>
+        <item>Peanut oil</item>
+        <item>Sesame oil</item>
+        <item>Shortening</item>
+        <item>Soya bean oil</item>
+        <item>Vegetable oil</item>
+    </string-array>
+
+    <array name="oils_img">
+        <item>@drawable/almond_oil</item>
+        <item>@drawable/canola_oil</item>
+        <item>@drawable/coconut_oil</item>
+        <item>@drawable/corn_oil</item>
+        <item>@drawable/grapeseed_oil</item>
+        <item>@drawable/lard</item>
+        <item>@drawable/mustard_oil</item>
+        <item>@drawable/olive_oil</item>
+        <item>@drawable/peanut_oil</item>
+        <item>@drawable/sesame_oil</item>
+        <item>@drawable/shortening</item>
+        <item>@drawable/soya_oil</item>
+        <item>@drawable/vegetable_oil</item>
+    </array>
+
+    <string-array name="spices">
+        <item>Bay leaf</item>
+        <item>Cinnamon</item>
+        <item>Cumin</item>
+        <item>Garlic powder</item>
+        <item>Oregano</item>
+        <item>Thyme</item>
+        <item>Turmeric</item>
+    </string-array>
+
+    <array name="spices_imgs">
+        <item>@drawable/bay_leaf</item>
+        <item>@drawable/cinnamon</item>
+        <item>@drawable/cumin</item>
+        <item>@drawable/garlic_powder</item>
+        <item>@drawable/oregano</item>
+        <item>@drawable/thyme</item>
+        <item>@drawable/turmeric</item>
+    </array>
+
+    <string-array name="sauces">
+        <item>Alfredo sauce</item>
+        <item>Marinara sauce</item>
+        <item>Mushroom gravy</item>
+        <item>Pesto</item>
+        <item>Salsa</item>
+        <item>Tomato paste</item>
+        <item>Tomato sauce</item>
+    </string-array>
+
+    <array name="sauces_imgs">
+        <item>@drawable/alfredo_sauce</item>
+        <item>@drawable/marinara_sauce</item>
+        <item>@drawable/mushroom_gravy</item>
+        <item>@drawable/pesto</item>
+        <item>@drawable/salsa</item>
+        <item>@drawable/tomato_paste</item>
+        <item>@drawable/tomato_sauce</item>
+    </array>
+
+    <string-array name="legumes">
+        <item>Black bean</item>
+        <item>Chickpea</item>
+        <item>Hummus</item>
+        <item>Kidney bean</item>
+        <item>Lentils</item>
+    </string-array>
+
+    <array name="legumes_img">
+        <item>@drawable/black_bean</item>
+        <item>@drawable/chickpea</item>
+        <item>@drawable/hummus</item>
+        <item>@drawable/kidney_bean</item>
+        <item>@drawable/lentils</item>
+    </array>
+
+    <string-array name="alcohol">
+        <item>Red wine</item>
+        <item>Tequila</item>
+        <item>Whiskey</item>
+        <item>White wine</item>
+    </string-array>
+
+    <array name="alcohol_img">
+        <item>@drawable/red_wine</item>
+        <item>@drawable/tequila</item>
+        <item>@drawable/whiskey</item>
+        <item>@drawable/white_wine</item>
+    </array>
+
+    <string-array name="soup">
+        <item>Chicken broth</item>
+        <item>Onion soup</item>
+        <item>Tomato soup</item>
+    </string-array>
+
+    <array name="soup_img">
+        <item>@drawable/chicken_broth</item>
+        <item>@drawable/onion_soup</item>
+        <item>@drawable/tomato_soup</item>
+    </array>
+
+    <string-array name="nuts">
+        <item>Almond</item>
+        <item>Cashew</item>
+        <item>Hazelnut</item>
+        <item>Peanut butter</item>
+        <item>Pecan</item>
+        <item>Walnut</item>
+    </string-array>
+
+    <array name="nuts_img">
+        <item>@drawable/almond</item>
+        <item>@drawable/cashew</item>
+        <item>@drawable/hazelnut</item>
+        <item>@drawable/peanut_butter</item>
+        <item>@drawable/pecan</item>
+        <item>@drawable/walnut</item>
+    </array>
+
+    <string-array name="deserts_snacks">
+        <item>Apple sauce</item>
+        <item>Cake</item>
+        <item>Candy</item>
+        <item>Chips</item>
+        <item>Chocolate</item>
+        <item>Cookies</item>
+    </string-array>
+
+    <array name="deserts_snacks_img">
+        <item>@drawable/apple_sauce</item>
+        <item>@drawable/cake</item>
+        <item>@drawable/candy</item>
+        <item>@drawable/chips</item>
+        <item>@drawable/chocolate</item>
+        <item>@drawable/cookies</item>
+    </array>
+
+    <string-array name="beverages">
+        <item>Apple juice</item>
+        <item>Chocolate milk</item>
+        <item>Coffee</item>
+        <item>Lemonade</item>
+        <item>Orange juice</item>
+    </string-array>
+
+    <array name="beverages_imgs">
+        <item>@drawable/apple_juice</item>
+        <item>@drawable/chocolate_milk</item>
+        <item>@drawable/coffee</item>
+        <item>@drawable/lemonade</item>
+        <item>@drawable/orange_juice</item>
+    </array>
+
+    <string-array name="baking_grains">
+        <item>Biscuit</item>
+        <item>Bread</item>
+        <item>Cereal</item>
+        <item>Flour</item>
+        <item>Pasta</item>
+        <item>Popcorn</item>
+        <item>Rice</item>
+    </string-array>
+
+    <array name="baking_grains_imgs">
+        <item>@drawable/biscuit</item>
+        <item>@drawable/bread</item>
+        <item>@drawable/cereal</item>
+        <item>@drawable/flour</item>
+        <item>@drawable/pasta</item>
+        <item>@drawable/popcorn</item>
+        <item>@drawable/rice</item>
+    </array>
+
+    <string-array name="dairy">
+        <item>American cheese</item>
+        <item>Butter</item>
+        <item>Buttermilk</item>
+        <item>Cheddar cheese</item>
+        <item>Condensed milk</item>
+        <item>Eggs</item>
+        <item>Half and half evaporated milk</item>
+        <item>Milk</item>
+        <item>Mozzarella cheese</item>
+        <item>Sour cream</item>
+        <item>Whipped cream</item>
+        <item>Yogurt</item>
+    </string-array>
+
+    <array name="dairy_imgs">
+        <item>@drawable/american_cheese</item>
+        <item>@drawable/butter</item>
+        <item>@drawable/buttermilk</item>
+        <item>@drawable/cheddar_cheese</item>
+        <item>@drawable/condensed_milk</item>
+        <item>@drawable/eggs</item>
+        <item>@drawable/half_and_half_evaporated_milk</item>
+        <item>@drawable/milk</item>
+        <item>@drawable/mozzarella_cheese</item>
+        <item>@drawable/sour_cream</item>
+        <item>@drawable/whipped_cream</item>
+        <item>@drawable/yogurt</item>
+
+    </array>
 </resources>

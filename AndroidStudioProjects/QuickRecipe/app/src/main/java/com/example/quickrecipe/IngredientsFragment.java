@@ -10,9 +10,15 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.SearchView;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 
 /**
  * Created by Gerald on 4/10/2018.
@@ -22,8 +28,6 @@ public class IngredientsFragment extends Fragment {
 
     private SearchView searchView;
     private GridView gridView;
-    private String[] ingredientList;
-    private TypedArray typedArray;
     private Context context;
     private SubCategory subCategory;
     private IngredientsAdapter ingredientsAdapter;
@@ -39,7 +43,6 @@ public class IngredientsFragment extends Fragment {
     @Override
     public void onSaveInstanceState(Bundle outState){
         super.onSaveInstanceState(outState);
-        Log.d("out", "out");
         outState.putSerializable("saveIngredients", subCategory);
     }
 
@@ -51,10 +54,6 @@ public class IngredientsFragment extends Fragment {
         Bundle bundle = getArguments();
         if(bundle != null && bundle.containsKey("subCategory")) {
             subCategory = (SubCategory) getArguments().getSerializable("subCategory");
-            if(subCategory != null){
-                ingredientList = subCategory.getIngredientList();
-                typedArray = subCategory.getImgs();
-            }
         }
 
 
@@ -74,10 +73,21 @@ public class IngredientsFragment extends Fragment {
 
         activity = (NavDrawerActivity) getActivity();
 
+        //  checks the cart to see if any ingredients match the ingredients of the current category
+        //  if so, display check mark where necessary
+        for(int i = 0; i < activity.cartArrayList.size(); i++){
+            for(int j = 0; j < subCategory.getIngredientList().length; j++){
+                if(activity.cartArrayList.get(i).getIngredient().equals(subCategory.getIngredientList()[j])){
+                    subCategory.getIngredientChecked().set(j, "1");
+                }
+            }
+        }
+
         //  setup adapter
         activity.setTitle("Home");
-        ingredientsAdapter = new IngredientsAdapter(this, ingredientList, typedArray);
+        ingredientsAdapter = new IngredientsAdapter(this, subCategory);
         gridView.setAdapter(ingredientsAdapter);
+
 
         //  on click listener for grid view items
         //  displays check mark if item does not currently have check mark, and vice versa
@@ -87,20 +97,20 @@ public class IngredientsFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 IngredientsAdapter.Holder holder = (IngredientsAdapter.Holder) view.getTag();
 
-                if(!holder.ingredientChecked){
+                if(holder.ingredientChecked.equals("0")){
 
                     //  updates grid view to show check mark
-                    holder.ingredientChecked = true;
+                    subCategory.getIngredientChecked().set(position, "1");
                     ingredientsAdapter.notifyDataSetChanged();
 
-                    updateCartQuantity(true);
+                    updateCartQuantity(true, holder.categoryName.getText().toString(), holder.categoryImage);
                 }
 
                 else{
-                    holder.ingredientChecked = false;
+                    subCategory.getIngredientChecked().set(position, "0");
                     ingredientsAdapter.notifyDataSetChanged();
 
-                    updateCartQuantity(false);
+                    updateCartQuantity(false, holder.categoryName.getText().toString(), null);
                 }
             }
         });
@@ -118,24 +128,36 @@ public class IngredientsFragment extends Fragment {
         super.onDetach();
     }
 
-    //  method that updates cart quantity when ingredient is selected
-    private void updateCartQuantity(boolean increment){
+    //  method that updates cart quantity when ingredient is selected and adds ingredient and image to cart
+    private void updateCartQuantity(boolean increment, String ingredient, ImageView ingredientImg){
         String quantityString = activity.cartQuantity.getText().toString();
         int quantityInt = Integer.parseInt(quantityString);
 
         if(increment) {
             quantityInt++;
+
+            //  add new cart item
+            Cart cart = new Cart(subCategory.getCategory(), ingredient, ingredientImg);
+            activity.cartArrayList.add(cart);
         }
         else{
             quantityInt--;
+
+            //  checks the cart array list to see if the ingredient that is unchecked is contained in the array list
+            //  if it is, it is removed from the array list
+            for(int i = 0; i < activity.cartArrayList.size(); i++){
+                if(activity.cartArrayList.get(i).getIngredient().equals(ingredient)){
+                    activity.cartArrayList.remove(i);
+                }
+            }
         }
+
         activity.cartQuantity.setText(String.format("%s", quantityInt));
     }
 
     @Override
     public void onDestroyView(){
         super.onDestroyView();
-        Log.d("destry", "d");
         //savedState.putSerializable("saveIngredients", subCategory);
     }
 

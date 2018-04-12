@@ -11,6 +11,9 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 /**
  * Created by Gerald on 4/10/2018.
@@ -18,14 +21,12 @@ import android.widget.TextView;
 
 public class IngredientsAdapter extends BaseAdapter {
 
-    private String[] ingredientList;
+    private SubCategory subCategory;
     private Context context;
-    private TypedArray images;
     private static LayoutInflater inflater = null;
 
-    public IngredientsAdapter(Fragment fragment, String[] ingredientList, TypedArray images){
-        this.ingredientList = ingredientList;
-        this.images = images;
+    public IngredientsAdapter(Fragment fragment, SubCategory subCategory){
+        this.subCategory = subCategory;
         this.context = fragment.getContext();
         inflater = (LayoutInflater) this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
@@ -33,7 +34,7 @@ public class IngredientsAdapter extends BaseAdapter {
 
     @Override
     public int getCount(){
-        return ingredientList.length;
+        return subCategory.getIngredientList().length;
     }
 
     @Override
@@ -55,8 +56,7 @@ public class IngredientsAdapter extends BaseAdapter {
         TextView categoryName;
         ImageView categoryImage;
         ImageView ingredientCheckBox;
-        boolean ingredientChecked;
-
+        String ingredientChecked;
     }
 
     @Override
@@ -79,10 +79,11 @@ public class IngredientsAdapter extends BaseAdapter {
             holder = (Holder) convertView.getTag();
         }
 
-        holder.categoryName.setText(ingredientList[position]);
-        holder.categoryImage.setImageResource(images.getResourceId(position, 0));
+        holder.categoryName.setText(subCategory.getIngredientList()[position]);
+        holder.categoryImage.setImageResource(subCategory.getImgs().getResourceId(position, 0));
+        holder.ingredientChecked = subCategory.getIngredientChecked().get(position);
 
-        if(holder.ingredientChecked){
+        if(holder.ingredientChecked.equals("1")){
             holder.ingredientCheckBox.setVisibility(View.VISIBLE);
         }
 
@@ -91,6 +92,6 @@ public class IngredientsAdapter extends BaseAdapter {
         }
 
         return convertView;
-
     }
+
 }

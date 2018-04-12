@@ -3,6 +3,7 @@ package com.example.quickrecipe;
 import android.content.res.TypedArray;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -11,8 +12,10 @@ import java.util.List;
 
 public class SubCategory implements Serializable {
 
+    private int category;
     private String[] ingredientList;
     private transient TypedArray imgs;
+    private ArrayList<String> ingredientChecked;
 
     public SubCategory(){
 
@@ -21,6 +24,22 @@ public class SubCategory implements Serializable {
     public SubCategory(String[] ingredientList, TypedArray imgs){
         this.ingredientList = ingredientList;
         this.imgs = imgs;
+    }
+
+    public void setCategory(int category) {
+        this.category = category;
+    }
+
+    public int getCategory() {
+        return category;
+    }
+
+    public ArrayList<String> getIngredientChecked() {
+        return ingredientChecked;
+    }
+
+    public void setIngredientChecked(ArrayList<String> ingredientChecked) {
+        this.ingredientChecked = ingredientChecked;
     }
 
     public String[] getIngredientList() {
