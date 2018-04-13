@@ -9,9 +9,9 @@ import android.widget.ImageView;
 public class Cart {
     private int categoryPosition;
     private String ingredient;
-    private ImageView ingredientImg;
+    private Integer ingredientImg;
 
-    public Cart(int category, String ingredient, ImageView ingredientImg){
+    public Cart(int category, String ingredient, Integer ingredientImg){
         this.categoryPosition = category;
         this.ingredient = ingredient;
         this.ingredientImg = ingredientImg;
@@ -29,7 +29,7 @@ public class Cart {
         this.categoryPosition = category;
     }
 
-    public ImageView getIngredientImg() {
+    public Integer getIngredientImg() {
         return ingredientImg;
     }
 
@@ -41,7 +41,7 @@ public class Cart {
         this.ingredient = ingredient;
     }
 
-    public void setIngredientImg(ImageView ingredientImg) {
+    public void setIngredientImg(Integer ingredientImg) {
         this.ingredientImg = ingredientImg;
     }
 }

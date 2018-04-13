@@ -1,6 +1,7 @@
 package com.example.quickrecipe;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -19,6 +20,8 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.SearchView;
 import android.widget.TextView;
+
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -77,14 +80,12 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        Log.d("create", "view");
 
         return inflater.inflate(R.layout.fragment_home, container, false);
     }
 
     @Override
     public void onViewCreated(View v, @Nullable Bundle savedInstanceState){
-        Log.d("view", "created");
         searchView = (SearchView) v.findViewById(R.id.ingredientSearchView);
         gridView = (GridView) v.findViewById(R.id.mainCategoryGridView);
     }
@@ -93,9 +94,10 @@ public class HomeFragment extends Fragment {
     public void onActivityCreated(Bundle bundle){
         super.onActivityCreated(bundle);
 
-        Log.d("act", "Created");
         activity = (NavDrawerActivity) getActivity();
         getActivity().setTitle("Home");
+
+        //  set recipe data
 
         //  initialize categories
         category = new Category();
@@ -282,9 +284,11 @@ public class HomeFragment extends Fragment {
         super.onDetach();
     }
 
-    @Override
-    public void onResume(){
-        super.onResume();
-        Log.d("resume", "resume");
+    //  sets up the recipe data
+    private void initializeRecipeData(){
+        SharedPreferences sharedPreferences = context.getSharedPreferences("recipes", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        Gson gson = new Gson();
     }
+
 }

@@ -13,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
@@ -73,6 +74,17 @@ public class NavDrawerActivity extends AppCompatActivity
 
         //  default cart quantity is 0
         FrameLayout view = (FrameLayout) item.getActionView();
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Fragment cartFragment = new CartFragment();
+                FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+
+                fragmentTransaction.replace(R.id.content_frame, cartFragment);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+            }
+        });
         cartQuantity = (TextView) view.findViewById(R.id.cart_badge);
         cartQuantity.setText("0");
         return true;

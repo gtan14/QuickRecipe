@@ -65,6 +65,7 @@ public class IngredientsFragment extends Fragment {
 
         searchView = (SearchView) v.findViewById(R.id.ingredientSearchView);
         gridView = (GridView) v.findViewById(R.id.mainCategoryGridView);
+
     }
 
     @Override
@@ -79,6 +80,10 @@ public class IngredientsFragment extends Fragment {
             for(int j = 0; j < subCategory.getIngredientList().length; j++){
                 if(activity.cartArrayList.get(i).getIngredient().equals(subCategory.getIngredientList()[j])){
                     subCategory.getIngredientChecked().set(j, "1");
+                }
+
+                else{
+                    subCategory.getIngredientChecked().set(j, "0");
                 }
             }
         }
@@ -137,7 +142,7 @@ public class IngredientsFragment extends Fragment {
             quantityInt++;
 
             //  add new cart item
-            Cart cart = new Cart(subCategory.getCategory(), ingredient, ingredientImg);
+            Cart cart = new Cart(subCategory.getCategory(), ingredient, (Integer) ingredientImg.getTag());
             activity.cartArrayList.add(cart);
         }
         else{
@@ -153,6 +158,12 @@ public class IngredientsFragment extends Fragment {
         }
 
         activity.cartQuantity.setText(String.format("%s", quantityInt));
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        Log.d("resume", "resume");
     }
 
     @Override

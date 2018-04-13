@@ -81,6 +81,7 @@ public class IngredientsAdapter extends BaseAdapter {
 
         holder.categoryName.setText(subCategory.getIngredientList()[position]);
         holder.categoryImage.setImageResource(subCategory.getImgs().getResourceId(position, 0));
+        holder.categoryImage.setTag(subCategory.getImgs().getResourceId(position, 0));
         holder.ingredientChecked = subCategory.getIngredientChecked().get(position);
 
         if(holder.ingredientChecked.equals("1")){
