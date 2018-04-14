@@ -37,6 +37,60 @@
         <item>Chorizo</item>
     </string-array>
 
+    <string-array name="shrimp_tomato_pasta_ingredients">
+        <item>1 lb shrimp , fresh, uncooked, shelled and deveined</item>
+        <item>5 tomatoes , medium size, fresh, chopped into large cubes</item>
+        <item>1 cup spinach cooked</item>
+        <item>5 garlic cloves , minced</item>
+        <item>4 tablespoons butter</item>
+        <item>1 tablespoon olive oil</item>
+        <item>1/4 lemon</item>
+        <item>10 oz fettuccine pasta</item>
+        <item>1/2 cup mozzarella cheese grated, for serving</item>
+    </string-array>
+
+    <string-array name="pork_chop_zucchini_ingredients">
+        <item>1 tablespoon olive oil</item>
+        <item>4 pork chops, about 3/4-inch thick</item>
+        <item>1/2 cup rice</item>
+        <item>2 cans tomatoes</item>
+        <item>1/2 cup chopped bell pepper</item>
+        <item>1/2 cup chopped onion</item>
+        <item>1/4 cup sliced olives</item>
+        <item>2 cups thinly sliced zucchini</item>
+        <item>1/2 to 1 cup shredded Mozzarella cheese</item>
+    </string-array>
+
+    <string-array name="lemon_baked_salmon_ingredients">
+        <item>1 lb salmon</item>
+        <item>10 oz asparagus</item>
+        <item>Juice from 1/2 lemon</item>
+        <item>2 Tbsp olive oil</item>
+        <item>3 Tbsp white wine</item>
+        <item>3 oz diced tomatoes</item>
+        <item>1 tsp dry crushed basil</item>
+        <item>4 large garlic cloves</item>
+    </string-array>
+
+    <string-array name="baked_chicken">
+        <item>3 lbs chicken</item>
+        <item>1 large garlic clove</item>
+        <item>1 chopped onion</item>
+        <item>10 brown chopped mushrooms</item>
+        <item>2 chopped bell peppers</item>
+        <item>1 cup shredded mozzarella</item>
+    </string-array>
+
+    <string-array name="ground_beef_skillet">
+        <item>1/2 onion, diced</item>
+        <item>1 lb ground beef</item>
+        <item>1 cups tomatoes, chopped</item>
+        <item>1/2 bunch of parsley, finely chopped</item>
+        <item>Juice of 1 lemon</item>
+        <item>3--5 Eggs</item>
+        <item>Olive Oil</item>
+    </string-array>
+
     <array name="meats_imgs">
         <item>@drawable/bacon</item>
         <item>@drawable/beef_steak</item>

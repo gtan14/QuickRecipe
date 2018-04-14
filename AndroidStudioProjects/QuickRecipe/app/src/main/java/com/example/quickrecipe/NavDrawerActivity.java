@@ -1,6 +1,11 @@
 package com.example.quickrecipe;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.content.res.Resources;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -17,13 +22,18 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+
+import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class NavDrawerActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     public TextView cartQuantity;
     public ArrayList<Cart> cartArrayList;
+    private static Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +42,9 @@ public class NavDrawerActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        context = getApplicationContext();
+        SharedPreferences sharedPreferences = context.getSharedPreferences("recipes", MODE_PRIVATE);
+        sharedPreferences.edit().clear().apply();
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -44,6 +57,8 @@ public class NavDrawerActivity extends AppCompatActivity
 
         //  initialize the cart array list
         cartArrayList = new ArrayList<Cart>();
+
+        new RecipeAsyncTask().execute();
 
         //  creates the home fragment
         Fragment homeFragment = new HomeFragment();
@@ -125,8 +140,65 @@ public class NavDrawerActivity extends AppCompatActivity
 
         }
 
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void initializeRecipeDate(){
+
+    }
+
+    private static class RecipeAsyncTask extends AsyncTask<Void, Void, Void>{
+
+        @Override
+        protected void onPreExecute(){
+
+        }
+
+        @Override
+        protected Void doInBackground(Void... params){
+            SharedPreferences sharedPreferences = context.getSharedPreferences("recipes", MODE_PRIVATE);
+            if(!sharedPreferences.contains("shrimpTomatoSpinachPasta")) {
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                Gson gson = new Gson();
+
+
+                String[] shrimpTomatoArray = context.getResources().getStringArray(R.array.shrimp_tomato_pasta_ingredients);
+                ArrayList<String> shrimpTomatoArrayList = new ArrayList<>(Arrays.asList(shrimpTomatoArray));
+                String shrimpTomatoSpinachPasta = gson.toJson(new Recipe("Shrimp, tomato, and spinach pasta", "20 mins", "30 mins", context.getString(R.string.shrimp_tomato_pasta), shrimpTomatoArrayList));
+
+                String[] porkChopArray = context.getResources().getStringArray(R.array.pork_chop_zucchini_ingredients);
+                ArrayList<String> porkChopArrayList = new ArrayList<>(Arrays.asList(porkChopArray));
+                String porkChopZucchini = gson.toJson(new Recipe("Pork chops with zucchini, tomatoes, and mozzarella cheese", "15 mins", "40 mins", context.getString(R.string.pork_chop_zucchini), porkChopArrayList));
+
+                String[] bakedSalmonArray = context.getResources().getStringArray(R.array.lemon_baked_salmon_ingredients);
+                ArrayList<String> bakedSalmonArrayList = new ArrayList<>(Arrays.asList(bakedSalmonArray));
+                String lemonBakedSalmon = gson.toJson(new Recipe("Tomato lemon baked salmon and asparagus", "5 mins", "20 mins", context.getString(R.string.lemon_baked_salmon), bakedSalmonArrayList));
+
+                String[] bakedChickenArray = context.getResources().getStringArray(R.array.baked_chicken);
+                ArrayList<String> bakedChickenArrayList = new ArrayList<>(Arrays.asList(bakedChickenArray));
+                String bakedChicken = gson.toJson(new Recipe("Baked chicken with peppers and mushrooms", "10 mins", "30 mins", context.getString(R.string.baked_chicken), bakedChickenArrayList));
+
+                String[] beefSkilletArray = context.getResources().getStringArray(R.array.ground_beef_skillet);
+                ArrayList<String> beefSkilletArrayList = new ArrayList<>(Arrays.asList(beefSkilletArray));
+                String groundBeefSkillet = gson.toJson(new Recipe("Skillet of ground beef, tomatoes, and parsley topped with egg and lemon juice", "5 mins", "20 mins", context.getString(R.string.ground_beef_skillet), beefSkilletArrayList));
+
+                editor.putString("shrimpTomatoSpinachPasta", shrimpTomatoSpinachPasta);
+                editor.putString("porkChopZucchini", porkChopZucchini);
+                editor.putString("lemonBakedSalmon", lemonBakedSalmon);
+                editor.putString("bakedChicken", bakedChicken);
+                editor.putString("groundBeefSkillet", groundBeefSkillet);
+
+                editor.apply();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result){
+            super.onPostExecute(result);
+        }
     }
 }

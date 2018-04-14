@@ -16,6 +16,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 /**
  * Created by Gerald on 4/12/2018.
  */
@@ -25,6 +27,7 @@ public class CartFragment extends Fragment {
     private NavDrawerActivity navDrawerActivity;
     private LinearLayout linearLayout;
     private Button getRecipeBtn;
+    private ArrayList<String> ingredientList;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
@@ -44,6 +47,7 @@ public class CartFragment extends Fragment {
     public void onActivityCreated(Bundle bundle) {
         super.onActivityCreated(bundle);
         LayoutInflater layoutInflater = getLayoutInflater();
+        ingredientList = new ArrayList<>();
 
         for(int i = 0; i < navDrawerActivity.cartArrayList.size(); i++) {
 
@@ -53,6 +57,7 @@ public class CartFragment extends Fragment {
             ImageView deleteIngredient = cartLayout.findViewById(R.id.delete_cart_item);
 
             ingredient.setText(navDrawerActivity.cartArrayList.get(i).getIngredient());
+            ingredientList.add(ingredient.getText().toString());
             ingredientImg.setImageResource(navDrawerActivity.cartArrayList.get(i).getIngredientImg());
 
             deleteIngredient.setOnClickListener(new View.OnClickListener() {
@@ -73,6 +78,7 @@ public class CartFragment extends Fragment {
                                 String ingredientCart = cart.getIngredient();
                                 if(ingredient.getText().toString().equals(ingredientCart)){
                                     navDrawerActivity.cartArrayList.remove(i);
+                                    ingredientList.remove(ingredient.getText().toString());
                                 }
                             }
                         }
@@ -96,6 +102,9 @@ public class CartFragment extends Fragment {
             public void onClick(View v) {
                 Fragment recipeListFragment = new RecipeListFragment();
                 FragmentTransaction fragmentTransaction = navDrawerActivity.getSupportFragmentManager().beginTransaction();
+                Bundle bundle = new Bundle();
+                bundle.putStringArrayList("ingredients", ingredientList);
+                recipeListFragment.setArguments(bundle);
                 fragmentTransaction.replace(R.id.content_frame, recipeListFragment);
                 fragmentTransaction.commit();
             }
