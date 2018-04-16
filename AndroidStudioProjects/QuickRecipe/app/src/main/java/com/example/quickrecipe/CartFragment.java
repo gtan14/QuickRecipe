@@ -54,7 +54,7 @@ public class CartFragment extends Fragment {
 
             View cartLayout = layoutInflater.inflate(R.layout.ingredient_cart_item, null);
             final TextView ingredient = cartLayout.findViewById(R.id.ingredient_name_cart_text_view);
-            ImageView ingredientImg = cartLayout.findViewById(R.id.ingredient_image_cart_item);
+            SquareImageView ingredientImg = cartLayout.findViewById(R.id.ingredient_image_cart_item);
             ImageView deleteIngredient = cartLayout.findViewById(R.id.delete_cart_item);
 
             ingredient.setText(navDrawerActivity.cartArrayList.get(i).getIngredient());
@@ -108,6 +108,7 @@ public class CartFragment extends Fragment {
                     bundle.putStringArrayList("ingredients", ingredientList);
                     recipeListFragment.setArguments(bundle);
                     fragmentTransaction.replace(R.id.content_frame, recipeListFragment);
+                    fragmentTransaction.addToBackStack(null);
                     fragmentTransaction.commit();
                 }
 

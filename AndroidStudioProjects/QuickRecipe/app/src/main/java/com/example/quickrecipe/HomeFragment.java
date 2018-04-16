@@ -295,8 +295,8 @@ public class HomeFragment extends Fragment {
     }
 
     //  sets up the recipe data
-    private void filter(){
-        
+    private void filter(String text){
+
     }
 
 

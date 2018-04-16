@@ -148,7 +148,7 @@ public class RecipeListFragment extends Fragment {
                     if(filterIngredients){
                         numRecipesFound++;
                     }
-                    View view = layoutInflater.inflate(R.layout.recipe_list_item, null);
+                    View view = layoutInflater.inflate(R.layout.recipe_list_item, linearLayout, false);
 
                     SquareImageView recipeImg = view.findViewById(R.id.recipeImgListItem);
                     final AppCompatTextView recipeNameTV = view.findViewById(R.id.recipeNameListItem);
