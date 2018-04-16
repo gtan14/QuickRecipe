@@ -126,13 +126,23 @@ public class NavDrawerActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        if (id == R.id.nav_home) {
+            Fragment homeFragment = new HomeFragment();
+            FragmentTransaction fragmentTransaction = this.getSupportFragmentManager().beginTransaction();
 
-        } else if (id == R.id.nav_slideshow) {
+            fragmentTransaction.replace(R.id.content_frame, homeFragment);
+            fragmentTransaction.commit();
+        } else if (id == R.id.nav_recipes) {
+            Fragment recipeListFragment = new RecipeListFragment();
+            FragmentTransaction fragmentTransaction = this.getSupportFragmentManager().beginTransaction();
+            recipeListFragment.setArguments(new Bundle());
+            fragmentTransaction.replace(R.id.content_frame, recipeListFragment);
+            fragmentTransaction.commit();
+        } else if (id == R.id.nav_account) {
 
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.nav_settings) {
+
+        } else if (id == R.id.nav_logout){
 
         } else if (id == R.id.nav_share) {
 
