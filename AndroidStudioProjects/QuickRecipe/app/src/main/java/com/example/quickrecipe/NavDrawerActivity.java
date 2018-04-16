@@ -195,11 +195,11 @@ public class NavDrawerActivity extends AppCompatActivity
                 ArrayList<String> beefSkilletArrayList = new ArrayList<>(Arrays.asList(beefSkilletArray));
                 String groundBeefSkillet = gson.toJson(new Recipe("Skillet of ground beef, tomatoes, and parsley topped with egg and lemon juice", "5 mins", "20 mins", context.getString(R.string.ground_beef_skillet), beefSkilletArrayList));
 
-                editor.putString("shrimpTomatoSpinachPasta", shrimpTomatoSpinachPasta);
-                editor.putString("porkChopZucchini", porkChopZucchini);
-                editor.putString("lemonBakedSalmon", lemonBakedSalmon);
-                editor.putString("bakedChicken", bakedChicken);
-                editor.putString("groundBeefSkillet", groundBeefSkillet);
+                editor.putString("shrimp_tomato_and_spinach_pasta", shrimpTomatoSpinachPasta);
+                editor.putString("pork_chops_with_zucchini_tomatoes_and_mozzarella_cheese", porkChopZucchini);
+                editor.putString("tomato_lemon_baked_salmon_and_asparagus", lemonBakedSalmon);
+                editor.putString("baked_chicken_with_peppers_and_mushrooms", bakedChicken);
+                editor.putString("skillet_of_ground_beef_tomatoes_and_parsley_topped_with_egg_and_lemon_juice", groundBeefSkillet);
 
                 editor.apply();
             }

@@ -1,9 +1,13 @@
 package com.example.quickrecipe;
 
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.AppCompatTextView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -34,6 +38,7 @@ public class RecipeListFragment extends Fragment {
 
     private LinearLayout linearLayout;
     private ArrayList<String> cartIngredients;
+    private FloatingActionButton addRecipe;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
@@ -46,23 +51,51 @@ public class RecipeListFragment extends Fragment {
     @Override
     public void onViewCreated(View v, @Nullable Bundle savedInstanceState){
         linearLayout = (LinearLayout) v.findViewById(R.id.recipe_list_linear_layout);
+        addRecipe = (FloatingActionButton) v.findViewById(R.id.addRecipeFAB);
     }
 
     @Override
     public void onActivityCreated(Bundle bundle) {
         super.onActivityCreated(bundle);
 
-        Log.d("qw", "qw");
         Bundle b = this.getArguments();
         cartIngredients = b.getStringArrayList("ingredients");
 
         if(cartIngredients != null) {
             getRecipes(true);
+            addRecipe.setVisibility(View.INVISIBLE);
         }
 
         else{
+            addRecipe.setVisibility(View.VISIBLE);
             getRecipes(false);
         }
+
+        addRecipe.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setMessage("Add a new recipe?");
+                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        Fragment addRecipeFragment = new AddOrEditRecipeFragment();
+                        FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                        fragmentTransaction.replace(R.id.content_frame, addRecipeFragment);
+                        fragmentTransaction.addToBackStack(null);
+                        fragmentTransaction.commit();
+                    }
+                });
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+                builder.show();
+            }
+        });
     }
 
     private void getRecipes(boolean filterIngredients){
@@ -92,7 +125,6 @@ public class RecipeListFragment extends Fragment {
                 if (filterIngredients) {
                     int numMissingIngredients = 0;
                     for (int i = 0; i < recipeIngredientList.size(); i++) {
-                        Log.d("recipeIngredientList", recipeIngredientList.get(i));
                         boolean notInCart = false;
                         for (int j = 0; j < cartIngredients.size(); j++) {
                             if (recipeIngredientList.get(i).contains(cartIngredients.get(j).toLowerCase())) {
@@ -119,36 +151,58 @@ public class RecipeListFragment extends Fragment {
                     View view = layoutInflater.inflate(R.layout.recipe_list_item, null);
 
                     SquareImageView recipeImg = view.findViewById(R.id.recipeImgListItem);
-                    AppCompatTextView recipeNameTV = view.findViewById(R.id.recipeNameListItem);
+                    final AppCompatTextView recipeNameTV = view.findViewById(R.id.recipeNameListItem);
                     TextView prepTimeTV = view.findViewById(R.id.prepTimeListItem);
                     TextView cookTimeTV = view.findViewById(R.id.cookTimeListItem);
+                    ImageView editRecipe = view.findViewById(R.id.editRecipeImageView);
 
                     recipeNameTV.setText(recipeName);
 
 
                     if(recipeName != null) {
                         if (recipeName.equals("Shrimp, tomato, and spinach pasta")) {
-                            recipeImg.setImageResource(R.drawable.shrimp_tomato_spinach_pasta);
+                            recipeImg.setImageResource(R.drawable.shrimp_tomato_and_spinach_pasta);
                         } else if (recipeName.equals("Pork chops with zucchini, tomatoes, and mozzarella cheese")) {
-                            recipeImg.setImageResource(R.drawable.pork_chop_zucchini);
+                            recipeImg.setImageResource(R.drawable.pork_chops_with_zucchini_tomatoes_and_mozzarella_cheese);
                         } else if (recipeName.equals("Tomato lemon baked salmon and asparagus")) {
-                            recipeImg.setImageResource(R.drawable.lemon_baked_salmon);
+                            recipeImg.setImageResource(R.drawable.tomato_lemon_baked_salmon_and_asparagus);
                         } else if (recipeName.equals("Baked chicken with peppers and mushrooms")) {
-                            recipeImg.setImageResource(R.drawable.baked_chicken);
+                            recipeImg.setImageResource(R.drawable.baked_chicken_with_peppers_and_mushrooms);
                         } else if (recipeName.equals("Skillet of ground beef, tomatoes, and parsley topped with egg and lemon juice")) {
-                            recipeImg.setImageResource(R.drawable.ground_beef_skillet);
+                            recipeImg.setImageResource(R.drawable.skillet_of_ground_beef_tomatoes_and_parsley_topped_with_egg_and_lemon_juice);
                         } else {
 
                         }
                     }
 
-                    prepTimeTV.setText("Prep time: \n" + prepTime);
-                    cookTimeTV.setText("Cook time: \n" + cookTime);
+                    prepTimeTV.setText("Prep time:\n" + prepTime);
+                    cookTimeTV.setText("Cook time:\n" + cookTime);
 
                     view.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
+                            Fragment recipeViewFragment = new RecipeViewFragment();
+                            Bundle bundle = new Bundle();
+                            bundle.putString("recipeName", recipeNameTV.getText().toString());
+                            recipeViewFragment.setArguments(bundle);
+                            FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                            fragmentTransaction.replace(R.id.content_frame, recipeViewFragment);
+                            fragmentTransaction.addToBackStack(null);
+                            fragmentTransaction.commit();
+                        }
+                    });
 
+                    editRecipe.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Fragment editRecipeFragment = new AddOrEditRecipeFragment();
+                            Bundle bundle = new Bundle();
+                            bundle.putString("recipeName", recipeNameTV.getText().toString());
+                            editRecipeFragment.setArguments(bundle);
+                            FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                            fragmentTransaction.replace(R.id.content_frame, editRecipeFragment);
+                            fragmentTransaction.addToBackStack(null);
+                            fragmentTransaction.commit();
                         }
                     });
                     linearLayout.addView(view);

@@ -1,6 +1,7 @@
 package com.example.quickrecipe;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -24,6 +25,9 @@ public class LoginActivity extends AppCompatActivity {
 
         setContentView(R.layout.login_layout);
         setTitle("Sign In");
+
+        SharedPreferences sharedPreferences = getSharedPreferences("recipes", MODE_PRIVATE);
+        sharedPreferences.edit().clear().apply();
 
         //  view initialization
         signIn = findViewById(R.id.signInBtn);
