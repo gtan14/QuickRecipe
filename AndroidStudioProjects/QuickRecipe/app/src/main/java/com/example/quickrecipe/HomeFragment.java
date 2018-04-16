@@ -97,7 +97,17 @@ public class HomeFragment extends Fragment {
         activity = (NavDrawerActivity) getActivity();
         getActivity().setTitle("Home");
 
-        //  set recipe data
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return true;
+            }
+        });
 
         //  initialize categories
         category = new Category();
@@ -285,10 +295,9 @@ public class HomeFragment extends Fragment {
     }
 
     //  sets up the recipe data
-    private void initializeRecipeData(){
-        SharedPreferences sharedPreferences = context.getSharedPreferences("recipes", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        Gson gson = new Gson();
+    private void filter(){
+        
     }
+
 
 }
