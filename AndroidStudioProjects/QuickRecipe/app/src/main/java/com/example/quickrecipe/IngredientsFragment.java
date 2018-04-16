@@ -68,6 +68,7 @@ public class IngredientsFragment extends Fragment {
 
     }
 
+
     @Override
     public void onActivityCreated(Bundle bundle){
         super.onActivityCreated(bundle);
@@ -76,15 +77,21 @@ public class IngredientsFragment extends Fragment {
 
         //  checks the cart to see if any ingredients match the ingredients of the current category
         //  if so, display check mark where necessary
-        for(int i = 0; i < activity.cartArrayList.size(); i++){
-            for(int j = 0; j < subCategory.getIngredientList().length; j++){
-                if(activity.cartArrayList.get(i).getIngredient().equals(subCategory.getIngredientList()[j])){
-                    subCategory.getIngredientChecked().set(j, "1");
-                }
+        for(int i = 0; i < subCategory.getIngredientList().length; i++){
+            boolean enableCheckMark = false;
+            for(int j = 0; j < activity.cartArrayList.size(); j++){
+                if(subCategory.getIngredientList()[i].equals(activity.cartArrayList.get(j).getIngredient())){
+                    enableCheckMark = true;
 
-                else{
-                    subCategory.getIngredientChecked().set(j, "0");
                 }
+            }
+
+            if(enableCheckMark){
+                subCategory.getIngredientChecked().set(i, "1");
+            }
+
+            else{
+                subCategory.getIngredientChecked().set(i, "0");
             }
         }
 
@@ -163,7 +170,6 @@ public class IngredientsFragment extends Fragment {
     @Override
     public void onResume(){
         super.onResume();
-
     }
 
     @Override

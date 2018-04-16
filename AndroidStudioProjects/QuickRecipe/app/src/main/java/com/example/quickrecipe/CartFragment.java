@@ -15,6 +15,7 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -100,13 +101,19 @@ public class CartFragment extends Fragment {
         getRecipeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Fragment recipeListFragment = new RecipeListFragment();
-                FragmentTransaction fragmentTransaction = navDrawerActivity.getSupportFragmentManager().beginTransaction();
-                Bundle bundle = new Bundle();
-                bundle.putStringArrayList("ingredients", ingredientList);
-                recipeListFragment.setArguments(bundle);
-                fragmentTransaction.replace(R.id.content_frame, recipeListFragment);
-                fragmentTransaction.commit();
+                if(linearLayout.getChildCount() > 0) {
+                    Fragment recipeListFragment = new RecipeListFragment();
+                    FragmentTransaction fragmentTransaction = navDrawerActivity.getSupportFragmentManager().beginTransaction();
+                    Bundle bundle = new Bundle();
+                    bundle.putStringArrayList("ingredients", ingredientList);
+                    recipeListFragment.setArguments(bundle);
+                    fragmentTransaction.replace(R.id.content_frame, recipeListFragment);
+                    fragmentTransaction.commit();
+                }
+
+                else{
+                    Toast.makeText(getActivity(), "Add ingredients to cart", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }

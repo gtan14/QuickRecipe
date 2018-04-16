@@ -15,12 +15,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
+import com.google.gson.Gson;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Map;
 
 import static android.content.Context.MODE_PRIVATE;
@@ -73,7 +76,6 @@ public class AddOrEditRecipeFragment extends Fragment {
         if(bundle != null){
             sentRecipeName = bundle.getString("recipeName");
         }
-        Log.d("qw", "qw");
     }
 
     @Override
@@ -95,10 +97,23 @@ public class AddOrEditRecipeFragment extends Fragment {
                 checkForErrors();
 
                 if(proceedToSave) {
+                    saveRecipe();
                     getActivity().getSupportFragmentManager().popBackStack();
                 }
             }
         });
+    }
+
+    private void saveRecipe(){
+        SharedPreferences.Editor editor = getActivity().getSharedPreferences("recipes", MODE_PRIVATE).edit();
+        Gson gson = new Gson();
+        ArrayList<String> ingredientsList = new ArrayList<String>();
+        ingredientsList.addAll(Arrays.asList(ingredients.getText().toString().split("\"\\\\W+\"")));
+        String savedName = recipeName.getText().toString().replaceAll(",", "").replaceAll(" ", "_").toLowerCase();
+        String json = gson.toJson(new Recipe(recipeName.getText().toString(), prepTime.getText().toString(), cookTime.getText().toString(), instructions.getText().toString(), ingredientsList));
+        editor.putString(savedName, json);
+        editor.apply();
+
     }
 
     private void checkForErrors(){
