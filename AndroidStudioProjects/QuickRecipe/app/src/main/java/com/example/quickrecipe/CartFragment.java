@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,6 +51,7 @@ public class CartFragment extends Fragment {
         LayoutInflater layoutInflater = getLayoutInflater();
         ingredientList = new ArrayList<>();
 
+        Log.d("size", String.format("%s", navDrawerActivity.cartArrayList.size()));
         for(int i = 0; i < navDrawerActivity.cartArrayList.size(); i++) {
 
             View cartLayout = layoutInflater.inflate(R.layout.ingredient_cart_item, null);

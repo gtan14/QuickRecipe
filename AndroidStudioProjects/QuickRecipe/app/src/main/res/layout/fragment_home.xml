@@ -4,7 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#EEEEEE"
-    tools:context="com.example.quickrecipe.HomeFragment">
+    tools:context="com.example.quickrecipe.HomeFragment"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
 
     <SearchView
         android:id="@+id/ingredientSearchView"

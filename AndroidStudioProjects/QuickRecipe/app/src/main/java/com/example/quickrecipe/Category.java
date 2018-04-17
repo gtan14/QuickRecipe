@@ -1,29 +1,30 @@
 package com.example.quickrecipe;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Gerald on 4/12/2018.
  */
 
 public class Category {
-    private String[] categories;
+    private ArrayList<String> categories;
     private ArrayList<String> checkedList;
-    private int[] imgList;
+    private List<Integer> imgList;
 
     public ArrayList<String> getCheckedList() {
         return checkedList;
     }
 
-    public int[] getImgList() {
+    public List<Integer> getImgList() {
         return imgList;
     }
 
-    public String[] getCategories() {
+    public ArrayList<String> getCategories() {
         return categories;
     }
 
-    public void setCategories(String[] categories) {
+    public void setCategories(ArrayList<String> categories) {
         this.categories = categories;
     }
 
@@ -31,7 +32,7 @@ public class Category {
         this.checkedList = checkedList;
     }
 
-    public void setImgList(int[] imgList) {
+    public void setImgList(List<Integer> imgList) {
         this.imgList = imgList;
     }
 }

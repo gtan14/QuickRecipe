@@ -154,7 +154,8 @@ public class NavDrawerActivity extends AppCompatActivity
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     dialog.dismiss();
-
+                    SharedPreferences sharedPreferences = getSharedPreferences("rememberMe", MODE_PRIVATE);
+                    sharedPreferences.edit().clear().apply();
                     Intent intent = new Intent(NavDrawerActivity.this, LoginActivity.class);
                     startActivity(intent);
                 }
