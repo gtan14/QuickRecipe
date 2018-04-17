@@ -2,6 +2,8 @@ package com.example.quickrecipe;
 
 import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -99,11 +101,13 @@ public class RecipeViewFragment extends Fragment {
 
                     ingredients.setText(stringBuilder.toString());
 
-                    String drawableName = jsonRecipeName.replaceAll(",", "").replaceAll(" ", "_").toLowerCase();
-                    Resources resources = getActivity().getResources();
-                    int resourceId = resources.getIdentifier(drawableName, "drawable", getActivity().getPackageName());
+                    String drawableName = jsonRecipeName.replaceAll(",", "").replaceAll(" ", "_").replaceAll("'", "").toLowerCase();
+                    //Resources resources = getActivity().getResources();
+                    String file = "/data/user/0/com.example.quickrecipe/app_files/"  + drawableName + ".png";
+                    Bitmap bitmap = BitmapFactory.decodeFile(file);
+                    //int resourceId = resources.getIdentifier(drawableName, "drawable", getActivity().getPackageName());
 
-                    recipeImage.setImageResource(resourceId);
+                    recipeImage.setImageBitmap(bitmap);
                     getActivity().setTitle(recipeName.getText().toString());
 
                     return;

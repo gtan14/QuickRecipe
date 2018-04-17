@@ -1,8 +1,14 @@
 package com.example.quickrecipe;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TextInputLayout;
@@ -13,7 +19,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 
@@ -22,6 +30,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.w3c.dom.Text;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Map;
@@ -46,8 +57,11 @@ public class AddOrEditRecipeFragment extends Fragment {
     private TextInputLayout instructionsInputLayout;
     private Button cancel;
     private Button save;
+    private SquareImageView recipeImgUpload;
     private boolean proceedToSave;
     private String sentRecipeName;
+    public static final int GET_FROM_GALLERY = 3;
+    private String recipeNameBeforeChange;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
@@ -71,6 +85,7 @@ public class AddOrEditRecipeFragment extends Fragment {
         cookTimeInputLayout = v.findViewById(R.id.cookTimeTextInputLayout);
         ingredientsInputLayout = v.findViewById(R.id.ingredientsTextInputLayout);
         instructionsInputLayout = v.findViewById(R.id.instructionsTextInputLayout);
+        recipeImgUpload = v.findViewById(R.id.recipeImageUpload);
 
         Bundle bundle = getArguments();
         if(bundle != null){
@@ -79,10 +94,45 @@ public class AddOrEditRecipeFragment extends Fragment {
     }
 
     @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        //Detects request codes
+        if(requestCode==GET_FROM_GALLERY && resultCode == Activity.RESULT_OK) {
+            Uri selectedImage = data.getData();
+            Bitmap bitmap = null;
+            try {
+                bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), selectedImage);
+                recipeImgUpload.setImageBitmap(bitmap);
+                recipeImgUpload.setTag(bitmap.describeContents());
+            } catch (FileNotFoundException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @Override
     public void onActivityCreated(Bundle bundle) {
         super.onActivityCreated(bundle);
 
-        setData();
+        recipeImgUpload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivityForResult(new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI), GET_FROM_GALLERY);
+            }
+        });
+
+        if(sentRecipeName != null){
+            setData();
+            recipeImgUpload.setOnClickListener(null);
+        }
+
+        else{
+            recipeImgUpload.setTag(R.drawable.upload);
+        }
 
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -109,11 +159,34 @@ public class AddOrEditRecipeFragment extends Fragment {
         Gson gson = new Gson();
         ArrayList<String> ingredientsList = new ArrayList<String>();
         ingredientsList.addAll(Arrays.asList(ingredients.getText().toString().split("\"\\\\W+\"")));
-        String savedName = recipeName.getText().toString().replaceAll(",", "").replaceAll(" ", "_").toLowerCase();
+        String savedName = recipeName.getText().toString().replaceAll(",", "").replaceAll(" ", "_").replaceAll("'", "").toLowerCase();
         String json = gson.toJson(new Recipe(recipeName.getText().toString(), prepTime.getText().toString(), cookTime.getText().toString(), instructions.getText().toString(), ingredientsList));
         editor.putString(savedName, json);
         editor.apply();
 
+        if(sentRecipeName != null) {
+            if(!recipeNameBeforeChange.equals(recipeName.getText().toString().replaceAll(",", "").replaceAll(" ", "_").replaceAll("'", "").toLowerCase())) {
+                Log.d("recipeNameBeforeChange", recipeNameBeforeChange);
+                Log.d("newName", recipeName.getText().toString().replaceAll(",", "").replaceAll(" ", "_").replaceAll("'", "").toLowerCase());
+                File source = new File("/data/user/0/com.example.quickrecipe/app_files/" + recipeNameBeforeChange + ".png");
+                File destination = new File("/data/user/0/com.example.quickrecipe/app_files/" + recipeName.getText().toString().replaceAll(",", "").replaceAll(" ", "_").replaceAll("'", "").toLowerCase() + ".png");
+                boolean renamed = source.renameTo(destination);
+                if (renamed) {
+                    Log.d("renamed", "Renamed");
+                }
+                SharedPreferences sharedPreferences = getActivity().getSharedPreferences("recipes", MODE_PRIVATE);
+                sharedPreferences.edit().remove(recipeNameBeforeChange).apply();
+            }
+
+        }
+
+        if(recipeName.getText().toString().equals("Farmers' Market Chicken Skillet") || recipeName.getText().toString().equals("Farmers Market Chicken Skillet")
+                || recipeName.getText().toString().equals("Farmers' Market Chicken Skillet".toLowerCase()) || recipeName.getText().toString().equals("Farmers Market Chicken Skillet".toLowerCase())) {
+            SharedPreferences.Editor sharedPreferences = getActivity().getSharedPreferences("displayHiddenRecipe", MODE_PRIVATE).edit();
+            sharedPreferences.putBoolean("display", true).apply();
+        }
+
+        Toast.makeText(getActivity(), "Save successful", Toast.LENGTH_SHORT).show();
     }
 
     private void checkForErrors(){
@@ -161,6 +234,13 @@ public class AddOrEditRecipeFragment extends Fragment {
             instructionsInputLayout.setError("Enter instructions");
             proceedToSave = false;
         }
+
+        if(sentRecipeName == null) {
+            if (((int) recipeImgUpload.getTag()) == (R.drawable.upload)) {
+                Toast.makeText(getActivity(), "Upload an image", Toast.LENGTH_SHORT).show();
+                proceedToSave = false;
+            }
+        }
     }
 
     private void setData() {
@@ -168,7 +248,7 @@ public class AddOrEditRecipeFragment extends Fragment {
 
         Map<String, ?> keys = sharedPreferences.getAll();
         for (Map.Entry<String, ?> entry : keys.entrySet()) {
-
+        Log.d("keys", entry.getKey());
             try {
                 JSONObject jsonObject = new JSONObject(entry.getValue().toString());
                 String jsonRecipeName = jsonObject.getString("recipeName");
@@ -191,12 +271,15 @@ public class AddOrEditRecipeFragment extends Fragment {
 
                     ingredients.setText(ingredientsBuilder.toString());
 
-                    String drawableName = jsonRecipeName.replaceAll(",", "").replaceAll(" ", "_").toLowerCase();
-                    Resources resources = getActivity().getResources();
-                    int resourceId = resources.getIdentifier(drawableName, "drawable", getActivity().getPackageName());
+                    String drawableName = jsonRecipeName.replaceAll(",", "").replaceAll(" ", "_").replaceAll("'", "").toLowerCase();
+                    //Resources resources = getActivity().getResources();
+                    String file = "/data/user/0/com.example.quickrecipe/app_files/"  + drawableName + ".png";
+                    Bitmap bitmap = BitmapFactory.decodeFile(file);
+                    //int resourceId = resources.getIdentifier(drawableName, "drawable", getActivity().getPackageName());
 
-                    //recipeImage.setImageResource(resourceId);
+                    recipeImgUpload.setImageBitmap(bitmap);
                     getActivity().setTitle(recipeName.getText().toString());
+                    recipeNameBeforeChange = recipeName.getText().toString().replaceAll(",", "").replaceAll(" ", "_").replaceAll("'", "").toLowerCase();
 
                     return;
                 }

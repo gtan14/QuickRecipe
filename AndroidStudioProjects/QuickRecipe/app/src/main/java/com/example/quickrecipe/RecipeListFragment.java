@@ -2,6 +2,9 @@ package com.example.quickrecipe;
 
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -105,6 +108,8 @@ public class RecipeListFragment extends Fragment {
         Map<String, ?> keys = sharedPreferences.getAll();
         ArrayList<String> recipeIngredientList;
         int numRecipesFound = 0;
+        SharedPreferences sp = getActivity().getSharedPreferences("displayHiddenRecipe", MODE_PRIVATE);
+        boolean displayHiddenRecipe = sp.getBoolean("display", false);
         for(Map.Entry<String, ?> entry : keys.entrySet()){
 
             try {
@@ -112,6 +117,13 @@ public class RecipeListFragment extends Fragment {
                 JSONArray ingredientJSON = jsonObject.getJSONArray("ingredientList");
                 recipeIngredientList = new ArrayList<>();
                 String recipeName = jsonObject.getString("recipeName");
+
+                if((recipeName.equals("Farmers' Market Chicken Skillet") || recipeName.equals("Farmers Market Chicken Skillet")
+                    || recipeName.equals("Farmers' Market Chicken Skillet".toLowerCase()) || recipeName.equals("Farmers Market Chicken Skillet".toLowerCase()))
+                        && !displayHiddenRecipe){
+                    continue;
+                }
+
                 String cookTime = jsonObject.getString("cookTime");
                 String prepTime = jsonObject.getString("prepTime");
 
@@ -160,19 +172,12 @@ public class RecipeListFragment extends Fragment {
 
 
                     if(recipeName != null) {
-                        if (recipeName.equals("Shrimp, tomato, and spinach pasta")) {
-                            recipeImg.setImageResource(R.drawable.shrimp_tomato_and_spinach_pasta);
-                        } else if (recipeName.equals("Pork chops with zucchini, tomatoes, and mozzarella cheese")) {
-                            recipeImg.setImageResource(R.drawable.pork_chops_with_zucchini_tomatoes_and_mozzarella_cheese);
-                        } else if (recipeName.equals("Tomato lemon baked salmon and asparagus")) {
-                            recipeImg.setImageResource(R.drawable.tomato_lemon_baked_salmon_and_asparagus);
-                        } else if (recipeName.equals("Baked chicken with peppers and mushrooms")) {
-                            recipeImg.setImageResource(R.drawable.baked_chicken_with_peppers_and_mushrooms);
-                        } else if (recipeName.equals("Skillet of ground beef, tomatoes, and parsley topped with egg and lemon juice")) {
-                            recipeImg.setImageResource(R.drawable.skillet_of_ground_beef_tomatoes_and_parsley_topped_with_egg_and_lemon_juice);
-                        } else {
-
-                        }
+                        String drawableName = recipeName.replaceAll(",", "").replaceAll(" ", "_").replaceAll("'", "").toLowerCase();
+                        //Resources resources = getActivity().getResources();
+                        //int resourceId = resources.getIdentifier(drawableName, "drawable", getActivity().getPackageName());
+                        String file = "/data/user/0/com.example.quickrecipe/app_files/" + drawableName + ".png";
+                        Bitmap bitmap = BitmapFactory.decodeFile(file);
+                        recipeImg.setImageBitmap(bitmap);
                     }
 
                     prepTimeTV.setText("Prep time:\n" + prepTime);
@@ -215,6 +220,10 @@ public class RecipeListFragment extends Fragment {
 
         if(cartIngredients != null){
             getActivity().setTitle("Recipes found(" + numRecipesFound + ")");
+        }
+
+        else{
+            getActivity().setTitle("Recipes");
         }
 
     }
