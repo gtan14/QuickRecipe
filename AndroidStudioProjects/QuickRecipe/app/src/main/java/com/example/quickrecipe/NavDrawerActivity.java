@@ -27,6 +27,8 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 
+import org.w3c.dom.Text;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
