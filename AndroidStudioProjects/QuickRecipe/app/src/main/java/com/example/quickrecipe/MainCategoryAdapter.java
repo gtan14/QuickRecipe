@@ -30,7 +30,7 @@ import java.util.List;
 public class MainCategoryAdapter extends BaseAdapter {
 
     Context context;
-    FragmentActivity fragmentActivity;
+    NavDrawerActivity fragmentActivity;
     private Category category;
 
     private static LayoutInflater inflater = null;
@@ -38,7 +38,7 @@ public class MainCategoryAdapter extends BaseAdapter {
     public MainCategoryAdapter(Fragment fragment, Category category){
         this.category = category;
         this.context = fragment.getContext();
-        this.fragmentActivity = fragment.getActivity();
+        this.fragmentActivity = (NavDrawerActivity) fragment.getActivity();
         inflater = (LayoutInflater) this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
     }
@@ -108,6 +108,22 @@ public class MainCategoryAdapter extends BaseAdapter {
             if (holder.ingredientsChecked.equals("1")) {
                 holder.checkbox.setVisibility(View.VISIBLE);
             } else {
+                holder.checkbox.setVisibility(View.INVISIBLE);
+            }
+
+            boolean check = false;
+            for(int i = 0; i < fragmentActivity.cartArrayList.size(); i++){
+                Cart cart = fragmentActivity.cartArrayList.get(i);
+                if(holder.categoryName.getText().toString().equals(cart.getIngredient())){
+                    check = true;
+                }
+            }
+
+            if(check){
+                holder.checkbox.setVisibility(View.VISIBLE);
+            }
+
+            else{
                 holder.checkbox.setVisibility(View.INVISIBLE);
             }
         //}

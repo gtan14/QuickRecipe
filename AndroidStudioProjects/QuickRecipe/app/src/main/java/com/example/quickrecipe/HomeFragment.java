@@ -40,6 +40,7 @@ public class HomeFragment extends Fragment {
     private boolean searching;
     private List<Integer> imgCopy;
     private ArrayList<String> ingredientsCopy;
+    private ArrayList<String> copyCheckedList;
 
 
     public static ArrayList<String> searchIngredientList = new ArrayList<String>(Arrays.asList("Agave nectar", "Alfredo sauce", "Almond", "Almond oil", "American cheese", "Apple", "Apple juice", "Apple sauce", "Artichoke", "Artificial sweetener", "Asparagus", "Avocado", "Bacon", "Balsamic vinegar", "Banana", "Barbeque sauce", "Basil", "Bay leaf", "Beef steak", "Beet", "Bell pepper", "Biscuit", "Black bean", "Blackberry", "Blueberry", "Bread", "Broccoli", "Brown Sugar", "Butter", "Buttermilk", "Cabbage", "Cake", "Candy", "Canola oil", "Cantaloupe", "Cashew", "Cauliflower", "Celery", "Cereal", "Cheddar cheese", "Cherry", "Chicken", "Chicken broth", "Chickpea", "Chips", "Chocolate", "Chocolate milk", "Chorizo", "Cilantro", "Cinnamon", "Clam", "Cocktail sauce", "Coconut", "Coconut oil", "Cod", "Coffee", "Condensed milk", "Confectioners Sugar", "Cookies", "Corn", "Corn oil", "Crab", "Cranberry", "Cucumber", "Cumin", "Date", "Eggplant", "Eggs", "Flour", "Garlic", "Garlic powder", "Ginger", "Grape", "Grapefruit", "Grapeseed oil", "Green bean", "Ground beef", "Ground turkey", "Guava", "Half and half evaporated milk", "Ham", "Hazelnut", "Honey", "Hot dogs", "Hot sauce", "Hummus", "Italian dressing", "Ketchup", "Kidney bean", "Kiwi", "Lamb", "Lard", "Lemon", "Lemonade", "Lentils", "Lobster", "Maple syrup", "Marinara sauce", "Mayonnaise", "Milk", "Mint", "Mozzarella cheese", "Mushroom", "Mushroom gravy", "Mustard", "Mustard oil", "Olive", "Olive oil", "Onion", "Onion soup", "Orange", "Orange juice", "Oregano", "Oyster", "Papaya", "Parsley", "Pasta", "Peach", "Peanut butter", "Peanut oil", "Pear", "Pecan", "Pepperoni", "Pesto", "Pineapple", "Plum", "Popcorn", "Pork chops", "Raisin", "Ranch", "Raspberry", "Red snapper", "Red wine", "Rice", "Salami", "Salmon", "Salsa", "Sausage", "Scallion", "Sesame oil", "Shortening", "Shrimp", "Sour cream", "Soy sauce", "Soya bean oil", "Spinach", "Strawberry", "Sugar", "Tahini", "Tartar sauce", "Tequila", "Teriyaki", "Thyme", "Tilapia", "Tomato", "Tomato paste", "Tomato sauce", "Tomato soup", "Tuna", "Turkey", "Turmeric", "Vegetable oil", "Vinegar", "Walnut", "Watermelon", "Whipped cream", "Whiskey", "White wine", "Yogurt", "Zucchini"));
@@ -130,9 +131,11 @@ public class HomeFragment extends Fragment {
         category.setCategories(categoryList);
         category.setImgList(imageList);
         ArrayList<String> arrayList = new ArrayList<>();
+
         for(int i = 0; i < categoryList.size(); i++){
             arrayList.add(i, "0");
         }
+
         category.setCheckedList(arrayList);
 
         //  checks the cart to see if any ingredients are added
@@ -200,15 +203,16 @@ public class HomeFragment extends Fragment {
                         }
                     }
 
-                    ArrayList<String> checkedList = new ArrayList<>();
+                    copyCheckedList = new ArrayList<>();
                     for(int i = 0; i < ingredientsCopy.size(); i++){
-                        checkedList.add(i, "0");
+                        copyCheckedList.add(i, "0");
                     }
+
 
                     sharedPreferences.edit().putBoolean("searching", true).apply();
                     category.setCategories(ingredientsCopy);
                     category.setImgList(imgCopy);
-                    category.setCheckedList(checkedList);
+                    category.setCheckedList(copyCheckedList);
                     searching = true;
                 }
 
