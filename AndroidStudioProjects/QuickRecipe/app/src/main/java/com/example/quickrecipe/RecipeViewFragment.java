@@ -4,9 +4,15 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.SpannableStringBuilder;
+import android.text.style.ForegroundColorSpan;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,6 +42,7 @@ public class RecipeViewFragment extends Fragment {
     private TextView ingredients;
     private TextView instructions;
     private String sentRecipeName;
+    private NavDrawerActivity activity;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
@@ -64,6 +71,7 @@ public class RecipeViewFragment extends Fragment {
     public void onActivityCreated(Bundle bundle) {
         super.onActivityCreated(bundle);
 
+        activity = (NavDrawerActivity) getActivity();
         setData();
     }
 
@@ -94,12 +102,31 @@ public class RecipeViewFragment extends Fragment {
                         recipeIngredientList.add(ingredientJSON.getString(i));
                     }
 
+
+                    ingredients.setText("");
                     for(int i = 0; i < recipeIngredientList.size(); i++){
-                        String newLine = recipeIngredientList.get(i) + "\n";
-                        stringBuilder.append(newLine);
+                        boolean changeColor = true;
+                        for(int j = 0 ; j < activity.cartArrayList.size(); j++){
+                            if(recipeIngredientList.get(i).toLowerCase().contains(activity.cartArrayList.get(j).getIngredient().toLowerCase())){
+                                changeColor = false;
+                            }
+                        }
+                        if(changeColor){
+                            SpannableStringBuilder builder = new SpannableStringBuilder();
+
+                            SpannableString redSpannable= new SpannableString(recipeIngredientList.get(i));
+                            redSpannable.setSpan(new ForegroundColorSpan(Color.RED), 0, recipeIngredientList.get(i).length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                            builder.append(redSpannable + "\n");
+                            ingredients.append(builder);
+                            Log.d("red", redSpannable.toString());
+                        }
+
+                        else{
+                            Log.d("list", recipeIngredientList.get(i));
+                            ingredients.append(recipeIngredientList.get(i) + "\n");
+                        }
                     }
 
-                    ingredients.setText(stringBuilder.toString());
 
                     String drawableName = jsonRecipeName.replaceAll(",", "").replaceAll(" ", "_").replaceAll("'", "").toLowerCase();
                     //Resources resources = getActivity().getResources();

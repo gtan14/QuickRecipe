@@ -23,6 +23,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -58,6 +59,15 @@ public class NavDrawerActivity extends AppCompatActivity
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        View headerView = navigationView.getHeaderView(0);
+        TextView username = (TextView) headerView.findViewById(R.id.UsernameTextViewHeader);
+        //ImageView profile = (ImageView) headerView.findViewById(R.id.userProfileImage);
+
+        SharedPreferences sharedPreferences1 = getSharedPreferences("signedInUser", MODE_PRIVATE);
+        String user = sharedPreferences1.getString("user", "");
+
+        //profile.setImageResource(R.drawable.person);
+        username.setText(user);
         navigationView.setNavigationItemSelectedListener(this);
 
         //  initialize the cart array list
@@ -136,17 +146,21 @@ public class NavDrawerActivity extends AppCompatActivity
             FragmentTransaction fragmentTransaction = this.getSupportFragmentManager().beginTransaction();
 
             fragmentTransaction.replace(R.id.content_frame, homeFragment);
+            fragmentTransaction.addToBackStack(null);
             fragmentTransaction.commit();
         } else if (id == R.id.nav_recipes) {
             Fragment recipeListFragment = new RecipeListFragment();
             FragmentTransaction fragmentTransaction = this.getSupportFragmentManager().beginTransaction();
             recipeListFragment.setArguments(new Bundle());
             fragmentTransaction.replace(R.id.content_frame, recipeListFragment);
+            fragmentTransaction.addToBackStack(null);
             fragmentTransaction.commit();
         } else if (id == R.id.nav_account) {
-
-        } else if (id == R.id.nav_settings) {
-
+            Fragment recipeListFragment = new AccountFragment();
+            FragmentTransaction fragmentTransaction = this.getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.content_frame, recipeListFragment);
+            fragmentTransaction.addToBackStack(null);
+            fragmentTransaction.commit();
         } else if (id == R.id.nav_logout){
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setMessage("Are you sure you want to log out?");
@@ -156,6 +170,8 @@ public class NavDrawerActivity extends AppCompatActivity
                     dialog.dismiss();
                     SharedPreferences sharedPreferences = getSharedPreferences("rememberMe", MODE_PRIVATE);
                     sharedPreferences.edit().clear().apply();
+                    SharedPreferences sharedPreferences1 = getSharedPreferences("signedInUser", MODE_PRIVATE);
+                    sharedPreferences1.edit().clear().apply();
                     Intent intent = new Intent(NavDrawerActivity.this, LoginActivity.class);
                     startActivity(intent);
                 }
@@ -175,9 +191,6 @@ public class NavDrawerActivity extends AppCompatActivity
         return true;
     }
 
-    private void initializeRecipeDate(){
-
-    }
 
     private static class RecipeAsyncTask extends AsyncTask<Void, Void, Void>{
 

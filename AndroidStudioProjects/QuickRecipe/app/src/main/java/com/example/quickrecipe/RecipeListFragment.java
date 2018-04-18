@@ -2,9 +2,12 @@ package com.example.quickrecipe;
 
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -42,6 +45,7 @@ public class RecipeListFragment extends Fragment {
     private LinearLayout linearLayout;
     private ArrayList<String> cartIngredients;
     private FloatingActionButton addRecipe;
+    private ImageView favorite;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
@@ -116,7 +120,7 @@ public class RecipeListFragment extends Fragment {
                 JSONObject jsonObject = new JSONObject(entry.getValue().toString());
                 JSONArray ingredientJSON = jsonObject.getJSONArray("ingredientList");
                 recipeIngredientList = new ArrayList<>();
-                String recipeName = jsonObject.getString("recipeName");
+                final String recipeName = jsonObject.getString("recipeName");
 
                 if((recipeName.equals("Farmers' Market Chicken Skillet") || recipeName.equals("Farmers Market Chicken Skillet")
                     || recipeName.equals("Farmers' Market Chicken Skillet".toLowerCase()) || recipeName.equals("Farmers Market Chicken Skillet".toLowerCase()))
@@ -167,6 +171,7 @@ public class RecipeListFragment extends Fragment {
                     TextView prepTimeTV = view.findViewById(R.id.prepTimeListItem);
                     TextView cookTimeTV = view.findViewById(R.id.cookTimeListItem);
                     ImageView editRecipe = view.findViewById(R.id.editRecipeImageView);
+                    ImageView favoriteRecipe = view.findViewById(R.id.recipeFavorite);
 
                     recipeNameTV.setText(recipeName);
 
@@ -182,6 +187,11 @@ public class RecipeListFragment extends Fragment {
 
                     prepTimeTV.setText("Prep time:\n" + prepTime);
                     cookTimeTV.setText("Cook time:\n" + cookTime);
+                    SharedPreferences sharedPreferences1 = getActivity().getSharedPreferences("favorites", MODE_PRIVATE);
+                    boolean favorite = sharedPreferences1.getBoolean(recipeNameTV.getText().toString(), false);
+                    if(favorite){
+                        favoriteRecipe.setColorFilter(Color.argb(255, 255, 0, 0));
+                    }
 
                     view.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -208,6 +218,25 @@ public class RecipeListFragment extends Fragment {
                             fragmentTransaction.replace(R.id.content_frame, editRecipeFragment);
                             fragmentTransaction.addToBackStack(null);
                             fragmentTransaction.commit();
+                        }
+                    });
+
+                    favoriteRecipe.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            ImageView imageView = (ImageView) v;
+                            SharedPreferences sharedPreferences1 = getActivity().getSharedPreferences("favorites", MODE_PRIVATE);
+                            boolean favorite = sharedPreferences1.getBoolean(recipeNameTV.getText().toString(), false);
+
+
+                            if(!favorite) {
+                                imageView.setColorFilter(Color.argb(255, 255, 0, 0));
+                                sharedPreferences1.edit().putBoolean(recipeNameTV.getText().toString(), true).apply();
+                            }
+                            else{
+                                imageView.setColorFilter(Color.argb(255, 0, 0, 0));
+                                sharedPreferences1.edit().putBoolean(recipeNameTV.getText().toString(), false).apply();
+                            }
                         }
                     });
                     linearLayout.addView(view);

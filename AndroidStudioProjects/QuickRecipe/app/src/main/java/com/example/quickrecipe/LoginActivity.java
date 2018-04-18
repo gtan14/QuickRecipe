@@ -48,6 +48,9 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        SharedPreferences sharedPreferences1 = getSharedPreferences("favorites", MODE_PRIVATE);
+        sharedPreferences1.edit().clear().apply();
+
         SharedPreferences sharedPreferences = getSharedPreferences("rememberMe", MODE_PRIVATE);
         boolean skipLoginPage = sharedPreferences.getBoolean("check", false);
 
@@ -175,6 +178,8 @@ public class LoginActivity extends AppCompatActivity {
 
                 if(usernameJSON.equals(username.getText().toString()) && passwordJSON.equals(password.getText().toString())){
                     proceedSignIn = true;
+                    SharedPreferences sharedPreferences1 = getSharedPreferences("signedInUser", MODE_PRIVATE);
+                    sharedPreferences1.edit().putString("user", jsonObject.getString("firstName")).apply();
                 }
             }
 
