@@ -12,6 +12,9 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.AppCompatTextView;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -87,6 +90,8 @@ public class AccountFragment extends Fragment {
 
         SharedPreferences sharedPreferences1 = getActivity().getSharedPreferences("signedInUser", MODE_PRIVATE);
         String user = sharedPreferences1.getString("user", "");
+        //SpannableString spannableString = new SpannableString(user);
+        //spannableString.setSpan(new ForegroundColorSpan(Color.argb(255, 33, 66, 123)), 0, 4, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         firstName.setText(user);
 
         layoutInflater = getLayoutInflater();

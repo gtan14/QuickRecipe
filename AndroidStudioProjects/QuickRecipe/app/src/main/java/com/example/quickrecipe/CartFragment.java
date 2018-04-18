@@ -51,6 +51,8 @@ public class CartFragment extends Fragment {
         LayoutInflater layoutInflater = getLayoutInflater();
         ingredientList = new ArrayList<>();
 
+        getActivity().setTitle("Cart");
+
         Log.d("size", String.format("%s", navDrawerActivity.cartArrayList.size()));
         for(int i = 0; i < navDrawerActivity.cartArrayList.size(); i++) {
 
@@ -103,7 +105,7 @@ public class CartFragment extends Fragment {
         getRecipeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(linearLayout.getChildCount() > 0) {
+                if(linearLayout.getChildCount() > 1) {
                     Fragment recipeListFragment = new RecipeListFragment();
                     FragmentTransaction fragmentTransaction = navDrawerActivity.getSupportFragmentManager().beginTransaction();
                     Bundle bundle = new Bundle();

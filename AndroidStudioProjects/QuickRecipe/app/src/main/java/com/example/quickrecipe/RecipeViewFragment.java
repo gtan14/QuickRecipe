@@ -11,6 +11,7 @@ import android.support.v4.app.Fragment;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
+import android.text.Spanned;
 import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -112,12 +113,14 @@ public class RecipeViewFragment extends Fragment {
                             }
                         }
                         if(changeColor){
-                            SpannableStringBuilder builder = new SpannableStringBuilder();
+                            //SpannableStringBuilder builder = new SpannableStringBuilder();
 
                             SpannableString redSpannable= new SpannableString(recipeIngredientList.get(i));
-                            redSpannable.setSpan(new ForegroundColorSpan(Color.RED), 0, recipeIngredientList.get(i).length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                            builder.append(redSpannable + "\n");
-                            ingredients.append(builder);
+                            Log.d("length", String.format("%s", recipeIngredientList.get(i).length()));
+                            redSpannable.setSpan(new ForegroundColorSpan(Color.argb(255, 255, 0, 0)), 0, recipeIngredientList.get(i).length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                            //builder.append(redSpannable + "\n");
+                            ingredients.append(redSpannable);
+                            ingredients.append("\n");
                             Log.d("red", redSpannable.toString());
                         }
 
