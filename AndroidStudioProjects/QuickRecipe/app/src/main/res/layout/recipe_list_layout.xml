@@ -11,9 +11,8 @@
         android:id="@+id/addRecipeFAB"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_marginBottom="64dp"
-        android:layout_marginEnd="24dp"
+        android:layout_gravity="bottom|center"
+        android:layout_marginBottom="12dp"
         app:srcCompat="@drawable/ic_add_black_24dp" />
 
     <ScrollView
@@ -25,6 +24,7 @@
             android:id="@+id/recipe_list_linear_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingBottom="45dp"
             android:orientation="vertical"/>
 
 </ScrollView>

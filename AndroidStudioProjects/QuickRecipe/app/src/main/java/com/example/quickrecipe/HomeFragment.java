@@ -125,7 +125,7 @@ public class HomeFragment extends Fragment {
         getActivity().setTitle("Home");
 
         sharedPreferences = getActivity().getSharedPreferences("search", Context.MODE_PRIVATE);
-        //sharedPreferences.edit().putBoolean("searching", false).apply();
+        sharedPreferences.edit().putBoolean("searching", false).apply();
 
         //  initialize categories
         category.setCategories(categoryList);
@@ -152,16 +152,18 @@ public class HomeFragment extends Fragment {
         gridView.setAdapter(mainCategoryAdapter);
 
 
+
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                //sharedPreferences.edit().putBoolean("searching", true).apply();
+                sharedPreferences.edit().putBoolean("searching", true).apply();
+                searchView.clearFocus();
                 return true;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                //sharedPreferences.edit().putBoolean("searching", true).apply();
+                sharedPreferences.edit().putBoolean("searching", true).apply();
 
                 if(newText.length() == 0){
                     searching = false;

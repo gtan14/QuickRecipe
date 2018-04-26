@@ -21,6 +21,7 @@
             android:id="@+id/usernameEditText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_regular"
             android:ems="10"
             android:hint="@string/username"
             android:inputType="textPersonName" />
@@ -43,6 +44,7 @@
             android:ems="10"
             android:hint="@string/password"
             android:inputType="textPassword"
+            android:fontFamily="@font/roboto_regular"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             tools:layout_editor_absoluteY="139dp" />
@@ -52,29 +54,26 @@
         android:id="@+id/signInBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="84dp"
         android:layout_marginTop="8dp"
         android:text="@string/signIn"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/rememberMeChkBox"
         app:layout_constraintTop_toBottomOf="@+id/rememberMeChkBox" />
 
     <Button
         android:id="@+id/signUpBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="84dp"
         android:layout_marginTop="8dp"
         android:text="@string/signUp"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/passwordTextInputLayout"
         app:layout_constraintTop_toBottomOf="@+id/rememberMeChkBox" />
 
     <CheckBox
         android:id="@+id/rememberMeChkBox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="84dp"
         android:layout_marginTop="16dp"
         android:text="@string/rememberMe"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/passwordTextInputLayout"
         app:layout_constraintTop_toBottomOf="@+id/passwordTextInputLayout" />
 </android.support.constraint.ConstraintLayout>

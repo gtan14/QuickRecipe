@@ -71,8 +71,10 @@
             android:id="@+id/imageView3"
             android:layout_width="48dp"
             android:layout_height="48dp"
+            android:layout_marginBottom="8dp"
             android:layout_marginLeft="16dp"
             android:layout_marginTop="8dp"
+            app:layout_constraintBottom_toTopOf="@+id/view4"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/view3"
             app:srcCompat="@drawable/clock" />
@@ -81,10 +83,11 @@
             android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="60dp"
+            android:layout_marginStart="24dp"
             android:layout_marginTop="8dp"
+            android:fontFamily="@font/roboto_medium"
             android:text="Prep time"
-            android:textSize="20sp"
+            android:textSize="30sp"
             android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@+id/imageView3"
             app:layout_constraintTop_toBottomOf="@+id/view3" />
@@ -93,10 +96,11 @@
             android:id="@+id/textView4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="40dp"
+            android:layout_marginStart="24dp"
             android:layout_marginTop="8dp"
+            android:fontFamily="@font/roboto_medium"
             android:text="Cook time"
-            android:textSize="20sp"
+            android:textSize="30sp"
             android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@+id/textView3"
             app:layout_constraintTop_toBottomOf="@+id/view3" />
@@ -119,6 +123,7 @@
             android:layout_marginTop="8dp"
             android:text="Ingredients"
             android:textSize="30sp"
+            android:fontFamily="@font/roboto_medium"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/view4" />
@@ -127,10 +132,10 @@
             android:id="@+id/prepTimeRecipeView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="60dp"
+            android:layout_marginStart="24dp"
             android:layout_marginTop="8dp"
             android:text="TextView"
-            android:textSize="16sp"
+            android:textSize="20sp"
             app:layout_constraintStart_toEndOf="@+id/imageView3"
             app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
@@ -138,10 +143,10 @@
             android:id="@+id/cookTimeRecipeView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="40dp"
+            android:layout_marginStart="24dp"
             android:layout_marginTop="8dp"
             android:text="TextView"
-            android:textSize="16sp"
+            android:textSize="20sp"
             app:layout_constraintStart_toEndOf="@+id/textView3"
             app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
@@ -176,6 +181,7 @@
             android:layout_marginTop="8dp"
             android:text="Instructions"
             android:textSize="30sp"
+            android:fontFamily="@font/roboto_medium"
             android:textStyle="bold"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/view5" />
