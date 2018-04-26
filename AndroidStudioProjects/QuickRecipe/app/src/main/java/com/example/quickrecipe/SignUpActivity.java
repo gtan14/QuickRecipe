@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 
@@ -58,8 +59,10 @@ public class SignUpActivity extends AppCompatActivity {
                 checkErrors();
                 if(proceedWithSignUp) {
                     saveUserAccount();
+                    Toast.makeText(SignUpActivity.this, "Registration successful", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(SignUpActivity.this, LoginActivity.class);
                     startActivity(intent);
+
                 }
             }
         });

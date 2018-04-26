@@ -27,6 +27,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
+            android:fontFamily="@font/roboto_regular"
             android:hint="@string/firstName"
             android:inputType="textPersonName"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -51,6 +52,7 @@
             android:ems="10"
             android:hint="@string/username"
             android:inputType="textPersonName"
+            android:fontFamily="@font/roboto_regular"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             tools:layout_editor_absoluteY="98dp" />
@@ -73,6 +75,7 @@
             android:ems="10"
             android:hint="@string/password"
             android:inputType="textPassword"
+            android:fontFamily="@font/roboto_regular"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             tools:layout_editor_absoluteY="173dp" />
@@ -95,6 +98,7 @@
             android:ems="10"
             android:hint="@string/reenterPass"
             android:inputType="textPassword"
+            android:fontFamily="@font/roboto_regular"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             tools:layout_editor_absoluteY="253dp" />

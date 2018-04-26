@@ -51,6 +51,12 @@ public class LoginActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences1 = getSharedPreferences("favorites", MODE_PRIVATE);
         sharedPreferences1.edit().clear().apply();
 
+        SharedPreferences displayHiddenRecipe = getSharedPreferences("displayHiddenRecipe", MODE_PRIVATE);
+        displayHiddenRecipe.edit().clear().apply();
+
+        //SharedPreferences users = getSharedPreferences("users", MODE_PRIVATE);
+        //users.edit().clear().apply();
+
         SharedPreferences sharedPreferences = getSharedPreferences("rememberMe", MODE_PRIVATE);
         boolean skipLoginPage = sharedPreferences.getBoolean("check", false);
 
